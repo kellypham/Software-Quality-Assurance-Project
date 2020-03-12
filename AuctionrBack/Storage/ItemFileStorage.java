@@ -111,12 +111,14 @@ public class ItemFileStorage extends ItemStorage
 	private Item Parse(String line)
 	{
 		Item i = new Item();
+
+		String[] splitLine = line.split("\\s+");
 		
-		String name = line.substring(0, 18).trim();
-		String sellerName = line.substring(19, 34);
-		String highestBidderName = line.substring(35, 49);
-		int daysRemaining = Integer.parseInt(line.substring(49, 53).trim());
-		int highestBid = Integer.parseInt(line.substring(54));
+		String name = splitLine[0];
+		String sellerName = splitLine[1];
+		String highestBidderName = splitLine[2];
+		int daysRemaining = Integer.parseInt(splitLine[3]);
+		int highestBid = Integer.parseInt(splitLine[4]);
 
 		i.SetName(name);
 		i.SetSellerName(sellerName);

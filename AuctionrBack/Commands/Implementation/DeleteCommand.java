@@ -1,9 +1,11 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class DeleteCommand extends Command{
+import AuctionrBack.Commands.Command;
+
+public class DeleteCommand extends Command {
 
     public DeleteCommand(String[] args){
-
+		super(args);
     }
 
     public void Validate(){

@@ -1,9 +1,11 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class Refund extends Command{
+import AuctionrBack.Commands.Command;
+
+public class Refund extends Command {
 
     public Refund(String[] args){
-
+		super(args);
     }
 
     public void Validate(){

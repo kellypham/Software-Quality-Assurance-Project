@@ -1,9 +1,12 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class CreateCommand extends Command{
+import AuctionrBack.Commands.Command;
 
-    public CreateCommand(String[] args){
+public class CreateCommand extends Command {
 
+	public CreateCommand(String[] args)
+	{
+		super(args);
     }
 
     public void Validate(){

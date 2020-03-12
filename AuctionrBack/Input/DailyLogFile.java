@@ -1,18 +1,19 @@
 package AuctionrBack.Input;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Queue;
+import java.util.ArrayList;
 
 public class DailyLogFile extends DailyLog
 {
 	private String filename;
-	private Queue<LogEntry> entries;
+	private ArrayList<LogEntry> entries;
+	int nextIndex = 0;
 
 	public DailyLogFile(String file)
 	{
 		filename = file;
+		entries = new ArrayList<>();
 	}
 
 	@Override
@@ -46,13 +47,16 @@ public class DailyLogFile extends DailyLog
 	@Override
 	public LogEntry NextItem()
 	{
-		return entries.remove();
+		LogEntry result = entries.get(nextIndex);
+		nextIndex++;
+
+		return result;
 	}
 
 	@Override
 	public boolean IsEmpty()
 	{
-		return entries.size() == 0;
+		return entries.size() == nextIndex;
 	}
 	
 }

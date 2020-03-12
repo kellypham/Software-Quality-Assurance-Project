@@ -15,14 +15,34 @@ public class Main
 		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
 
 		CommandFactory commandFactory = new CommandFactory(userStorage, itemStorage);
-
+		
 		try
 		{
 			log.Initialize();
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not initialize log: " + ex.getMessage());
+			System.out.println("Could not initialize log: " + ex);
+			System.exit(1);
+		}
+
+		try
+		{
+			userStorage.Open();
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Could not initialize users: " + ex);
+			System.exit(1);
+		}
+
+		try
+		{
+			itemStorage.Open();
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Could not initialize items: " + ex);
 			System.exit(1);
 		}
 

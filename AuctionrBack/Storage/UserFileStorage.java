@@ -111,9 +111,11 @@ public class UserFileStorage extends UserStorage
 	{
 		User user = new User();
 		
-		String name = line.substring(0, 15);
-		String type = line.substring(16, 18);
-		int credit = Integer.parseInt(line.substring(19));
+		String[] separatedLine = line.split("\\s+");
+
+		String name = separatedLine[0];
+		String type = separatedLine[1];
+		int credit = Integer.parseInt(separatedLine[2]);
 
 		user.SetName(name);
 		user.SetCredit(credit);
