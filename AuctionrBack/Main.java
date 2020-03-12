@@ -22,7 +22,7 @@ public class Main
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not initialize log: " + ex);
+			System.out.println("ERROR: Could not initialize log: " + ex);
 			System.exit(1);
 		}
 
@@ -32,7 +32,7 @@ public class Main
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not initialize users: " + ex);
+			System.out.println("ERROR: Could not initialize users: " + ex);
 			System.exit(1);
 		}
 
@@ -42,7 +42,7 @@ public class Main
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not initialize items: " + ex);
+			System.out.println("ERROR: Could not initialize items: " + ex);
 			System.exit(1);
 		}
 
@@ -61,7 +61,7 @@ public class Main
 			catch (Exception ex)
 			{
 				System.out.println(
-					"Validation error on line "
+					"ERROR: Validation error on line "
 					+ entryNumber
 					+ ": "
 					+ ex.getMessage()
@@ -77,7 +77,7 @@ public class Main
 			catch (Exception ex)
 			{
 				System.out.println(
-					"Fatal error on line "
+					"ERROR: Fatal error on line "
 					+ entryNumber
 					+ ": "
 					+ ex.getMessage()
@@ -93,7 +93,7 @@ public class Main
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not write new users file: " + ex.getMessage());
+			System.out.println("ERROR: Could not write new users file: " + ex.getMessage());
 		}
 
 		try
@@ -102,7 +102,7 @@ public class Main
 		}
 		catch (Exception ex)
 		{
-			System.out.println("Could not write new items file: " + ex.getMessage());
+			System.out.println("ERROR: Could not write new items file: " + ex.getMessage());
 		}
 
 		System.out.println("Done");
