@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.UserType;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
+import AuctionrBack.Storage.Formatting.StorageFormatter;
 
 public class UserFileStorage extends UserStorage
 {
@@ -110,16 +111,16 @@ public class UserFileStorage extends UserStorage
 	{
 		User user = new User();
 		
-		String name = "";
-		String type = "";
-		int credit = 1;
+		String name = line.substring(0, 15);
+		String type = line.substring(16, 18);
+		int credit = Integer.parseInt(line.substring(19));
 
 		user.SetName(name);
 		user.SetCredit(credit);
 
 		for (UserType t : UserType.values())
 		{
-			if (t.ToString() == type)
+			if (t.ToString().equals(type))
 			{
 				user.SetType(t);
 				break;
@@ -131,6 +132,10 @@ public class UserFileStorage extends UserStorage
 
 	private String Parse(User user)
 	{
-		return "";
+		StorageFormatter formatter = new StorageFormatter();
+
+		return formatter.Pad(user.GetName(), 15) + ' '
+			+ user.GetType().ToString() + ' '
+			+ formatter.Pad(user.GetCredit(), 9);
 	}
 }

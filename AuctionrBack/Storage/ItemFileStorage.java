@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import AuctionrBack.Models.Item;
 import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
+import AuctionrBack.Storage.Formatting.StorageFormatter;
 
 public class ItemFileStorage extends ItemStorage
 {
@@ -110,11 +111,31 @@ public class ItemFileStorage extends ItemStorage
 	private Item Parse(String line)
 	{
 		Item i = new Item();
+		
+		String name = line.substring(0, 18).trim();
+		String sellerName = line.substring(19, 34);
+		String highestBidderName = line.substring(35, 49);
+		int daysRemaining = Integer.parseInt(line.substring(49, 53).trim());
+		int highestBid = Integer.parseInt(line.substring(54));
+
+		i.SetName(name);
+		i.SetSellerName(sellerName);
+		i.SetHighestBidderName(highestBidderName);
+		i.SetDaysRemaining(daysRemaining);
+		i.SetHighestBid(highestBid);
+
 		return i;
 	}
 
 	private String Parse(Item item)
 	{
-		return "";
+		StorageFormatter formatter = new StorageFormatter();
+
+		return
+			formatter.Pad(item.GetName(), 19) + ' '
+			+ formatter.Pad(item.GetSellerName(), 15) + ' '
+			+ formatter.Pad(item.GetHighestBidderName(), 15) + ' '
+			+ formatter.Pad(item.GetDaysRemaining(), 3) + ' '
+			+ formatter.Pad(item.GetHigestBid(), 6);
 	} 
 }
