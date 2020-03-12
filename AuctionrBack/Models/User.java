@@ -1,13 +1,5 @@
 package AuctionrBack.Models;
 
-/** Enum for user types */
-enum UserType{
-    ADMIN,
-    FULL_STANDARD,
-    BUY_STANDARD,
-    SELL_STANDARD
-}
-
 /**
  * Class storing user data
  */
