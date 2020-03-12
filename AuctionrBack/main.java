@@ -5,18 +5,26 @@ import AuctionrBack.Commands.CommandFactory;
 import AuctionrBack.Input.*;
 import AuctionrBack.Storage.*;
 
-class Main
+public class Main
 {
 	public static void main(String[] args)
 	{
-		DailyLog log;
+		DailyLogFile log = new DailyLogFile("log.txt");
 
-		UserStorage userStorage;
-		ItemStorage itemStorage;
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
 
 		CommandFactory commandFactory = new CommandFactory(userStorage, itemStorage);
 
-		log.Initialize();
+		try
+		{
+			log.Initialize();
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Could not initialize log: " + ex.getMessage());
+			System.exit(1);
+		}
 
 		int entryNumber = 0;
 		while (!log.IsEmpty())
@@ -57,6 +65,24 @@ class Main
 
 				System.exit(1);
 			}
+		}
+
+		try
+		{
+			userStorage.Write("newusers.txt");
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Could not write new users file: " + ex.getMessage());
+		}
+
+		try
+		{
+			itemStorage.Write("newitems.txt");
+		}
+		catch (Exception ex)
+		{
+			System.out.println("Could not write new items file: " + ex.getMessage());
 		}
 
 		System.out.println("Done");
