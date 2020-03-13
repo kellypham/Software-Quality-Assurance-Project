@@ -1,14 +1,11 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class Refund extends Command{
+import AuctionrBack.Commands.Command;
 
+public class Refund extends Command {
 
-    private UserStorage userStorage;
-    private String[] args;
-
-    public Refund(UserStorage userStorage, String[] args){
-        this.userStorage = userStorage;
-        this.args = args
+    public Refund(String[] args){
+		super(args);
     }
 
     public void Validate(){

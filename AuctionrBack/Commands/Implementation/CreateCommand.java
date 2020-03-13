@@ -1,15 +1,12 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class CreateCommand extends Command{
+import AuctionrBack.Commands.Command;
 
-    private UserStorage userStorage;
-    private String[] args;
+public class CreateCommand extends Command {
 
-
-    public CreateCommand(UserStorage userStorage, String[] args){
-        //Constructor variables
-        this.userStorage = userStorage;
-        this.args = args;
+	public CreateCommand(String[] args)
+	{
+		super(args);
     }
 
 

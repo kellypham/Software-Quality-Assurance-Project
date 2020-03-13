@@ -1,13 +1,5 @@
 package AuctionrBack.Models;
 
-/** Enum for user types */
-enum UserType{
-    ADMIN,
-    FULL_STANDARD,
-    BUY_STANDARD,
-    SELL_STANDARD
-}
-
 /**
  * Class storing user data
  */
@@ -20,30 +12,33 @@ public class User
     * Accessor for user's name.
     * @return User's name
     */
-    public String GetName(){
+	public String GetName()
+	{
         return this.name;
     }
     /**
     * Mutator for user's name
     * @param name New name value
     */
-    public void SetName(String name){
+	public void SetName(String name)
+	{
         this.name = name;
     }
-
 
     /**
     * Accessor for user's type.
     * @return User's type from UserTypes enum
     */
-    public UserType GetType(){
+	public UserType GetType()
+	{
         return this.type;
     }
     /**
     * Mutator for user's type
     * @param name New user type
     */
-    public void SetType(UserType type){
+	public void SetType(UserType type)
+	{
         this.type = type;
     }
 
@@ -51,7 +46,8 @@ public class User
     * Accessor for user's credit.
     * @return User's credit
     */
-    public int GetCredit(){
+	public int GetCredit()
+	{
         return this.credit;
     }
 
@@ -59,7 +55,8 @@ public class User
     * Mutator for user's credit
     * @param name New credit value
     */
-    public SetCredit(int credit){
+	public void SetCredit(int credit)
+	{
         this.credit = credit;
     }
 
@@ -67,13 +64,9 @@ public class User
     * Accessor for user's admin type.
     * @return True if User is an Admin
     */
-    public boolean IsAdmin(){
-        if(this.type == UserType.ADMIN){
-            return true;
-        }
-        else{
-            return false;
-        }
+	public boolean IsAdmin()
+	{
+		return this.type == UserType.ADMIN;
     }
     
 }

@@ -1,14 +1,11 @@
-package AuctionBack.Commands.Implementation;
+package AuctionrBack.Commands.Implementation;
 
-public class DeleteCommand extends Command{
+import AuctionrBack.Commands.Command;
 
-    private UserStorage userStorage;
-    private String[] args;
+public class DeleteCommand extends Command {
 
-
-    public DeleteCommand(UserStorage userStorage, String[] args){
-        this.userStorage = userStorage;
-        this.args = args;
+    public DeleteCommand(String[] args){
+		super(args);
     }
 
     /* Function to check if the transaction code is correct 
