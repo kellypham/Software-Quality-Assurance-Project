@@ -8,6 +8,6 @@ public abstract class Command
 	{
 	}
 
-	public abstract void Validate() throws MyException, ItemNotFoundException, UserNotFoundException;
-	public abstract void Execute() throws ItemNotFoundException, UserNotFoundException;
+	public abstract void Validate() throws Exception;
+	public abstract void Execute() throws Exception;
 }
