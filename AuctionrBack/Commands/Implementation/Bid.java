@@ -3,7 +3,6 @@ package AuctionrBack.Commands.Implementation;
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.*;
-import AuctionrBack.Storage.Exceptions.*;
 
 public class Bid extends Command {
 	
@@ -46,7 +45,7 @@ public class Bid extends Command {
     }
     
     //make a bid on an item available for auction
-    public void Execute() throws ItemNotFoundException{
+    public void Execute() throws Exception{
     	//Args Variable
         String itemName = this.args[1];
         String userName = this.args[2];
