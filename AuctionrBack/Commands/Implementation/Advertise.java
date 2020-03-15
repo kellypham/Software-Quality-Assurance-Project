@@ -2,7 +2,6 @@ package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
-import AuctionrBack.Storage.Exceptions.*;
 import AuctionrBack.Storage.*;
 
 public class Advertise extends Command {
@@ -19,7 +18,7 @@ public class Advertise extends Command {
 		super(args);
     }
 
-    public void Validate() throws MyException, ItemNotFoundException, UserNotFoundException{
+    public void Validate() throws Exception{
     	//only accepted when logged in any type of account except standard-buy
     	String itemName = this.args[1];
     	Item item = this.itemStorage.GetByName(itemName);
@@ -29,25 +28,25 @@ public class Advertise extends Command {
     	UserType type = user.GetType();
     	
     	if (type.toString() == "BS") {
-    		throw new MyException("Error: User must not a buy-standard account");
+    		throw new Exception("Error: User must not a buy-standard account");
     	}
     	
         //Check the maximum price for an item is 1000
     	String price = this.args[2];
     	if (Integer.parseInt(price) >= limitPrice){
-    		throw new MyException("Error: The price of Item is greater than 999.99");
+    		throw new Exception("Error: The price of Item is greater than 999.99");
     	}
     	
     	//Check the maximum length of an item name is 25 characters
     	String name = this.args[1];
     	if (name.length() > limitItemName) {
-    		throw new MyException("Error: The length of Item name is greater than 25 characters");
+    		throw new Exception("Error: The length of Item name is greater than 25 characters");
     	}
     	
     	//Check the maximum number of days to auction is 100
     	String numOfDays = this.args[3];
     	if (Integer.parseInt(numOfDays) > limitNumOfDays) {
-    		throw new MyException("Error: The number of days to auction is greater than 100");
+    		throw new Exception("Error: The number of days to auction is greater than 100");
     	}
     }
     
