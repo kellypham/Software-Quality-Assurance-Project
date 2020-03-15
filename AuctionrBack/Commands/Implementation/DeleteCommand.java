@@ -2,43 +2,39 @@ package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
+import AuctionrBack.Storage.ItemStorage;
 import AuctionrBack.Storage.UserStorage;
 
 //Class for Delete Command
-public class DeleteCommand extends Command {
-    
-    private String[] args;
-    private UserStorage userStorage;
+public class DeleteCommand extends Command
+{
+	private UserStorage userStorage;
+	private ItemStorage itemStorage;
 
-    public DeleteCommand(String[] args){
+	String username;
+	User user;
+
+	public DeleteCommand(String[] args, UserStorage userStorage, ItemStorage itemStorage)
+	{
 		super(args);
-        this.args = args;
+		
+		username = args[1];
+
+		this.userStorage = userStorage;
+		this.itemStorage = itemStorage;
     }
-
-    /* Function to check if the transaction code is correct 
-    * and does not have bugs/errors
-    */
-    public void Validate() throws Exception{
-    
-        //If there are too many arguments for Delete Command
-        if (this.args.length != 4){
-            throw new Exception("Error: The arguments doesn't have the required length" + this.args.length);
-        }
-
-    }
-
-    /* The Execute Command to update the transaction that 
-    *  updates the code with the user
-    */
-    public void Execute() throws Exception{
-        //Args Variable
-        String name = this.args[1];
-        
-        //Finding the User
-        User user = this.userStorage.GetByName(name);
-
-        //Deleting the variable
-        user = null;
+	
+	/**
+	 * Checks that the user to delete exists
+	 */
+	public void Validate() throws Exception
+	{
+		user = userStorage.GetByName(username);
+	}
+	
+	public void Execute() throws Exception
+	{
+		userStorage.Delete(user);
     }
 
 }
