@@ -24,4 +24,10 @@ public abstract class UserStorage
 	 * @throws UserNotFoundException If the user doesn't exist in long term storage
 	 */
 	public abstract void Update(User user) throws UserNotFoundException;
+
+	/**
+	 * Remove a user from long term storage
+	 * @param user The user to delete 
+	 */
+	public abstract void Delete(User user);
 }

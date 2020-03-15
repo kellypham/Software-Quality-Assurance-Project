@@ -136,6 +136,25 @@ public class UserFileStorage extends UserStorage
 
 		throw new UserNotFoundException("User '" + toUpdate.GetName() + "' not found");
 	}
+	
+	/**
+	 * Delete a user. Changes will be written to the file created with Write()
+	 * @param user User to delete
+	 */
+	@Override
+	public void Delete(User toDelete)
+	{
+		for (int i = 0; i < users.size(); i++)
+		{
+			User user = users.get(i);
+
+			if (user.GetName().equals(toDelete.GetName()))
+			{
+				users.remove(i);
+				return;
+			}
+		}
+	}
 
 	/**
 	 * Assign all properties from one user to another
