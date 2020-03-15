@@ -23,8 +23,8 @@ public class Refund extends Command {
         String seller = this.args[2];
 
         //Getting the User of the strings
-        User buyerUser = this.userStorage.GetByName(buyer);
-        User sellerUser = this.userStorage.GetByName(seller);
+        //User buyerUser = this.userStorage.GetByName(buyer);
+        //User sellerUser = this.userStorage.GetByName(seller);
 
         //Validiating that the number of arguments is correct
         if(this.args.length != 4){

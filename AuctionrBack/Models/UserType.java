@@ -19,4 +19,5 @@ public enum UserType
 	{
 		return this.toStr;
 	}
+	
 }

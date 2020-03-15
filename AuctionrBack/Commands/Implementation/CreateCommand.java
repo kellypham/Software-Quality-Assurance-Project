@@ -15,7 +15,7 @@ public class CreateCommand extends Command {
     }
 
 
-	public void Validate() throws Exception{
+	public void Validate() throws MyException{
         //The amount of credits is greater than 999,999 
         String balance = this.args[3];
         if (Integer.parseInt(balance) > 999999){
@@ -26,7 +26,6 @@ public class CreateCommand extends Command {
         if (this.args.length != 4){
             throw new Exception("Error: The arguments doesnt have the required length");
         }
-
     }
 
     public void Execute(){
@@ -35,13 +34,23 @@ public class CreateCommand extends Command {
         
         //Args Variable
         String name = this.args[1];
-        String type = this.args[2];
+        String stringType = this.args[2];
         String balance = this.args[3];
 
         //Executing Variables
         user.SetName(name);
-        user.SetType(type);
-        user.SetCredit(Integer.parseInt(balance))
+        
+        //Getting the user type
+        UserType ret = null;
+		for (UserType type: UserType.values()){
+			if(type.ToString() == stringType){
+				ret = type;
+			}
+		}
+        
+		//Setting the UserType
+        user.SetType(ret);
+        user.SetCredit(Integer.parseInt(balance));
         this.userStorage.Create(user);
     }
 
