@@ -3,7 +3,6 @@ package AuctionrBack.Models;
 public class Item
 {   
     //Private Variables
-
 	/** Name of the item */
     private String name;
     /** Name of the item's seller */

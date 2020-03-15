@@ -2,18 +2,64 @@ package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
 
+//Class Refund
 public class Refund extends Command {
 
+    //Constructor
     public Refund(String[] args){
-		super(args);
+		  super(args);
     }
 
-    public void Validate(){
-        
+    //Valdidating the Refund arguments
+    public void Validate() throws MyException{
+
+        //Buyer and Seller Username
+        String buyer = this.args[1];
+        String seller = this.args[2];
+
+        //Getting the User of the strings
+        User buyerUser = this.userStorage.GetByName(buyerString);
+        User sellerUser = this.userStorage.GetByName(sellerString);
+
+        //Validiating that the number of arguments is correct
+        if(this.args.length() != 4){
+          throw new MyException(this.args.length);
+          System.out.println("Error: The arguments doesn't have the required length");
+        }
+
+        //checking if buyer's and user's are a valid user will throw an exception
+        this.userStorage.GetByName(buyer);
+        this.userStorage.GetByName(seller);
+
     }
 
+    //Executing the Refund arguments
     public void Execute(){
+      //Getting the Strings 
+      String buyerString = this.args[1];
+      String sellerString = this.args[2];
 
+      int credits = Integer.parseInt(this.args[3]);
+
+      //Getting the User of the strings
+      User buyerUser = this.userStorage.GetByName(buyerString);
+      User sellerUser = this.userStorage.GetByName(sellerString);
+
+      //Getting the Buyer and Seller Credit
+      int buyerCredit = buyerUser.GetCredit()
+      int sellerCredit = sellerUser.GetCredit();
+
+      //Calculations
+      buyerCredit += credits;
+      sellerCredit -= credits;
+
+      //Updating the credits
+      buyerUser.SetCredit(buyerCredit);
+      sellerUser.SetCredit(sellerCredit); 
+
+      //Update buyer and seller
+      this.userStorage.Update(buyerUser);
+      this.userStorage.Update(sellerUser);
     }
 
 }

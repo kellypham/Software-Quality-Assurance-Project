@@ -2,6 +2,7 @@ package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
 
+//Class for Delete Command
 public class DeleteCommand extends Command {
 
     public DeleteCommand(String[] args){
