@@ -8,8 +8,8 @@ import AuctionrBack.Storage.*;
 public class Advertise extends Command {
 
 	private String[] args;
-    	private ItemStorage itemStorage;
-    	private UserStorage userStorage;
+    private ItemStorage itemStorage;
+    private UserStorage userStorage;
 	
 	private final int limitPrice = 1000;
 	private final int limitItemName = 25;
@@ -28,8 +28,8 @@ public class Advertise extends Command {
     	User user = this.userStorage.GetByName(seller);
     	UserType type = user.GetType();
     	
-    	if (type.toString() != "BS") {
-    		throw new MyException("Error: User must be an admin account");
+    	if (type.toString() == "BS") {
+    		throw new MyException("Error: User must not a buy-standard account");
     	}
     	
         //Check the maximum price for an item is 1000
