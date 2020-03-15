@@ -59,6 +59,24 @@ public class ItemFileStorage extends ItemStorage
 	}
 
 	@Override
+	public Item[] All()
+	{
+		Item[] allItems = new Item[items.size()];
+
+		for (int i = 0; i < items.size(); i++)
+		{
+			Item original = items.get(i);
+			Item copy = new Item();
+
+			Assign(original, copy);
+
+			allItems[i] = copy;
+		}
+
+		return allItems;
+	}
+
+	@Override
 	public Item GetByName(String name) throws ItemNotFoundException
 	{
 		for (int i = 0; i < items.size(); i++)
@@ -97,6 +115,20 @@ public class ItemFileStorage extends ItemStorage
 		}
 
 		throw new ItemNotFoundException("Item '" + toUpdate.GetName() + "' not found");
+	}
+
+	public void Delete(Item toDelete)
+	{
+		for (int i = 0; i < items.size(); i++)
+		{
+			Item item = items.get(i);
+
+			if (item.GetName().equals(toDelete.GetName()))
+			{
+				items.remove(i);
+				return;
+			}
+		}
 	}
 
 	private void Assign(Item source, Item dest)
