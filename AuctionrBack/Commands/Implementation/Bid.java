@@ -6,7 +6,6 @@ import AuctionrBack.Storage.*;
 import AuctionrBack.Storage.Exceptions.*;
 
 public class Bid extends Command {
-	
 	private String[] args;
     private ItemStorage itemStorage;
     private UserStorage userStorage;
@@ -16,16 +15,15 @@ public class Bid extends Command {
 		super(args);
     }
 
-    public void Validate() throws MyException, ItemNotFoundException, UserNotFoundException{
+    public void Validate() throws Exception{
     	//only accepted when logged in any type of account except standard-sell
     	String userName = this.args[2];
     	User user = this.userStorage.GetByName(userName);
     	UserType type = user.GetType();
     	
     	if (type.toString() == "SS") {
-    		throw new MyException("Error: User must not a sell-standard account");
+    		throw new Exception("Error: User must not a sell-standard account");
     	}
-    	
     	
     	//item name must be an existing item with the exception
     	
@@ -36,12 +34,12 @@ public class Bid extends Command {
     	
     	//new bid must be greater than the previous highest bid
     	if (oldbid >= Integer.parseInt(newbid)) {
-    		throw new MyException("Error: The new bid must be greater than the perious bid");
+    		throw new Exception("Error: The new bid must be greater than the perious bid");
     	}
     	
     	//new bid must be at least 5% higher than the previous highest bid
     	if (Integer.parseInt(newbid) < oldbid*0.5) {
-    		throw new MyException("Error: The new bid must be at least 5% higher than the previous highest bid");
+    		throw new Exception("Error: The new bid must be at least 5% higher than the previous highest bid");
     	}
     	
     }
