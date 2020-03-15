@@ -3,7 +3,7 @@ package AuctionrBack.Commands.Implementation;
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.UserStorage;
-import AuctionrBack.Command.Implementation.Exceptions.*;
+import AuctionrBack.Storage.Exceptions.*;
 
 //Class Refund
 public class Refund extends Command {
@@ -17,19 +17,19 @@ public class Refund extends Command {
     }
 
     //Valdidating the Refund arguments
-    public void Validate() throws RefundException{
+    public void Validate() throws MyException, UserNotFoundException{
 
         //Buyer and Seller Username
         String buyer = this.args[1];
         String seller = this.args[2];
 
         //Getting the User of the strings
-        User buyerUser = this.userStorage.GetByName(buyerString);
-        User sellerUser = this.userStorage.GetByName(sellerString);
+        User buyerUser = this.userStorage.GetByName(buyer);
+        User sellerUser = this.userStorage.GetByName(seller);
 
         //Validiating that the number of arguments is correct
         if(this.args.length != 4){
-          throw new RefundException("Error: The arguments doesn't have the required length ");
+          throw new MyException("Error: The arguments doesn't have the required length ");
         }
         //checking if buyer's and user's are a valid user will throw an exception
         this.userStorage.GetByName(buyer);
@@ -38,7 +38,7 @@ public class Refund extends Command {
     }
 
     //Executing the Refund arguments
-    public void Execute(){
+    public void Execute() throws UserNotFoundException{
       //Getting the Strings 
       String buyerString = this.args[1];
       String sellerString = this.args[2];
@@ -50,7 +50,7 @@ public class Refund extends Command {
       User sellerUser = this.userStorage.GetByName(sellerString);
 
       //Getting the Buyer and Seller Credit
-      int buyerCredit = buyerUser.GetCredit()
+      int buyerCredit = buyerUser.GetCredit();
       int sellerCredit = sellerUser.GetCredit();
 
       //Calculations
