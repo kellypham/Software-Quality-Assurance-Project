@@ -15,7 +15,7 @@ public class CreateCommand extends Command {
     }
 
 
-	public void Validate() throws MyException{
+	public void Validate() throws Exception{
         //The amount of credits is greater than 999,999 
         String balance = this.args[3];
         if (Integer.parseInt(balance) > 999999){
