@@ -1,6 +1,9 @@
 package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
+import AuctionrBack.Models.*;
+import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Command.Implementation.Exceptions.*;
 
 public class CreateCommand extends Command {
     private String[] args;
@@ -13,16 +16,16 @@ public class CreateCommand extends Command {
     }
 
 
-    public void Validate() throws MyException{
+    public void Validate() throws CreateException{
         //The amount of credits is greater than 999,999 
         String balance = this.args[3];
         if (Integer.parseInt(balance) > 999999){
-            throw new MyException("The balance is greater than 9999999: " + balance);
+            throw new CreateException("The balance is greater than 9999999 ");
         }
 
         //If there are too many arguments for Create Command
         if (this.args.length != 4){
-            throw new MyException("Error: The arguments doesnt have the required length: " + this.args.length);
+            throw new CreateException("Error: The arguments doesnt have the required length");
         }
 
     }

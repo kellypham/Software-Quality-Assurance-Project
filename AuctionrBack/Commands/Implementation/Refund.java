@@ -1,6 +1,9 @@
 package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
+import AuctionrBack.Models.*;
+import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Command.Implementation.Exceptions.*;
 
 //Class Refund
 public class Refund extends Command {
@@ -14,7 +17,7 @@ public class Refund extends Command {
     }
 
     //Valdidating the Refund arguments
-    public void Validate() throws MyException{
+    public void Validate() throws RefundException{
 
         //Buyer and Seller Username
         String buyer = this.args[1];
@@ -26,9 +29,8 @@ public class Refund extends Command {
 
         //Validiating that the number of arguments is correct
         if(this.args.length != 4){
-          throw new MyException("Error: The arguments doesn't have the required length: " + this.args.length);
+          throw new RefundException("Error: The arguments doesn't have the required length ");
         }
-
         //checking if buyer's and user's are a valid user will throw an exception
         this.userStorage.GetByName(buyer);
         this.userStorage.GetByName(seller);

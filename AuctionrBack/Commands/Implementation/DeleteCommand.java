@@ -1,6 +1,9 @@
 package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
+import AuctionrBack.Models.*;
+import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Command.Implementation.Exceptions.*;
 
 //Class for Delete Command
 public class DeleteCommand extends Command {
@@ -16,11 +19,11 @@ public class DeleteCommand extends Command {
     /* Function to check if the transaction code is correct 
     * and does not have bugs/errors
     */
-    public void Validate() throws MyException{
+    public void Validate() throws DeleteException{
     
         //If there are too many arguments for Delete Command
         if (this.args.length != 4){
-            throw new MyException("Error: The arguments doesn't have the required length" + this.args.length);
+            throw new DeleteException("Error: The arguments doesn't have the required length" + this.args.length);
         }
 
     }
