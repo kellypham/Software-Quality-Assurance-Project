@@ -4,10 +4,13 @@ import AuctionrBack.Commands.Command;
 
 //Class Refund
 public class Refund extends Command {
+    private String[] args;
+    private UserStorage userStorage;
 
     //Constructor
     public Refund(String[] args){
 		  super(args);
+      this.args = args;
     }
 
     //Valdidating the Refund arguments
@@ -22,9 +25,8 @@ public class Refund extends Command {
         User sellerUser = this.userStorage.GetByName(sellerString);
 
         //Validiating that the number of arguments is correct
-        if(this.args.length() != 4){
-          throw new MyException(this.args.length);
-          System.out.println("Error: The arguments doesn't have the required length");
+        if(this.args.length != 4){
+          throw new MyException("Error: The arguments doesn't have the required length: " + this.args.length);
         }
 
         //checking if buyer's and user's are a valid user will throw an exception

@@ -4,9 +4,13 @@ import AuctionrBack.Commands.Command;
 
 //Class for Delete Command
 public class DeleteCommand extends Command {
+    
+    private String[] args;
+    private UserStorage userStorage;
 
     public DeleteCommand(String[] args){
 		super(args);
+        this.args = args;
     }
 
     /* Function to check if the transaction code is correct 
@@ -15,9 +19,8 @@ public class DeleteCommand extends Command {
     public void Validate() throws MyException{
     
         //If there are too many arguments for Delete Command
-        if (this.args.length() != 4){
-            throw new MyException(this.args.length);
-            System.out.println("Error: The arguments doesn't have the required length");
+        if (this.args.length != 4){
+            throw new MyException("Error: The arguments doesn't have the required length" + this.args.length);
         }
 
     }
