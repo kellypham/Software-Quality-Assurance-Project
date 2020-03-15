@@ -8,7 +8,8 @@ import AuctionrBack.Storage.*;
 public class Advertise extends Command {
 
 	private String[] args;
-    private ItemStorage itemStorage;
+    	private ItemStorage itemStorage;
+    	private UserStorage userStorage;
 	
 	private final int limitPrice = 1000;
 	private final int limitItemName = 25;
@@ -18,7 +19,19 @@ public class Advertise extends Command {
 		super(args);
     }
 
-    public void Validate() throws MyException{
+    public void Validate() throws MyException, ItemNotFoundException, UserNotFoundException{
+    	//only accepted when logged in any type of account except standard-buy
+    	String itemName = this.args[1];
+    	Item item = this.itemStorage.GetByName(itemName);
+    	String seller = item.GetSellerName();
+    	
+    	User user = this.userStorage.GetByName(seller);
+    	UserType type = user.GetType();
+    	
+    	if (type.toString() != "BS") {
+    		throw new MyException("Error: User must be an admin account");
+    	}
+    	
         //Check the maximum price for an item is 1000
     	String price = this.args[2];
     	if (Integer.parseInt(price) >= limitPrice){
