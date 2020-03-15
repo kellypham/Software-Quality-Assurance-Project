@@ -3,7 +3,7 @@ package AuctionrBack.Commands.Implementation;
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.UserStorage;
-import AuctionrBack.Command.Implementation.Exceptions.*;
+import AuctionrBack.Storage.Exceptions.MyException;
 
 public class CreateCommand extends Command {
     private String[] args;
@@ -16,16 +16,16 @@ public class CreateCommand extends Command {
     }
 
 
-    public void Validate() throws CreateException{
+	public void Validate() throws MyException{
         //The amount of credits is greater than 999,999 
         String balance = this.args[3];
         if (Integer.parseInt(balance) > 999999){
-            throw new CreateException("The balance is greater than 9999999 ");
+            throw new MyException("The balance is greater than 9999999 ");
         }
 
         //If there are too many arguments for Create Command
         if (this.args.length != 4){
-            throw new CreateException("Error: The arguments doesnt have the required length");
+            throw new MyException("Error: The arguments doesnt have the required length");
         }
 
     }
@@ -42,7 +42,7 @@ public class CreateCommand extends Command {
         //Executing Variables
         user.SetName(name);
         user.SetType(type);
-        user.SetBalance(balance);
+        user.SetCredit(Integer.parseInt(balance))
         this.userStorage.Create(user);
     }
 
