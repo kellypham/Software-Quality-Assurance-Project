@@ -14,6 +14,7 @@ public enum UserType
 		this.toStr = enumStr;
 	}
 
+	/** Returns a string representation of the enum */
 	public String ToString()
 	{
 		return this.toStr;

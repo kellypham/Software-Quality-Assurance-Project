@@ -13,17 +13,35 @@ import AuctionrBack.Models.UserType;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
 import AuctionrBack.Storage.Formatting.StorageFormatter;
 
+/**
+ * Implementation of UserStorage that reads Users from a file
+ */
 public class UserFileStorage extends UserStorage
 {
+	/**
+	 * All users
+	 */
 	ArrayList<User> users;
+	/**
+	 * File name to read users from
+	 */
 	private String filename;
 
+	/**
+	 * Initializes the file to read users from
+	 * @param filename Users file to read
+	 */
 	public UserFileStorage(String filename)
 	{
 		users = new ArrayList<>();
 		this.filename = filename;
 	}
 
+	/**
+	 * Reads Users from the users file, stores them in memory
+	 * @throws FileNotFoundException If the Users file doesn't exist
+	 * @throws IOException If there is an issue reading the Users file
+	 */
 	public void Open() throws FileNotFoundException, IOException
 	{
 		FileReader file = new FileReader(filename);
@@ -42,6 +60,11 @@ public class UserFileStorage extends UserStorage
 		reader.close();
 	}
 
+	/**
+	 * Write all changes to a specified output file
+	 * @param outputFile File to write to
+	 * @throws IOException when there is an issue writing to the specified file
+	 */
 	public void Write(String outputFile) throws IOException
 	{
 		FileWriter file = new FileWriter(outputFile);
@@ -59,6 +82,12 @@ public class UserFileStorage extends UserStorage
 		writer.close();
 	}
 
+	/**
+	 * Get a user by their name
+	 * @param name Name of the user to get
+	 * @throws UserNotFoundException When no user exists with the given name
+	 * @return User matching the given name
+	 */
 	@Override
 	public User GetByName(String name) throws UserNotFoundException
 	{
@@ -77,12 +106,20 @@ public class UserFileStorage extends UserStorage
 		throw new UserNotFoundException("User '" + name + "' not found");
 	}
 
+	/**
+	 * Create a user. User will be written to the file created with Write()
+	 * @param user User to create
+	 */
 	@Override
-	public void Create(User item)
+	public void Create(User user)
 	{
-		users.add(item);
+		users.add(user);
 	}
 
+	/**
+	 * Update a user. Changes will be written to the file created with Write()
+	 * @param user User to update
+	 */
 	@Override
 	public void Update(User toUpdate) throws UserNotFoundException
 	{
@@ -100,6 +137,11 @@ public class UserFileStorage extends UserStorage
 		throw new UserNotFoundException("User '" + toUpdate.GetName() + "' not found");
 	}
 
+	/**
+	 * Assign all properties from one user to another
+	 * @param source User to read properties from
+	 * @param dest User to write properties to
+	 */
 	private void Assign(User source, User dest)
 	{
 		dest.SetName(source.GetName());
@@ -107,6 +149,11 @@ public class UserFileStorage extends UserStorage
 		dest.SetCredit(source.GetCredit());
 	}
 
+	/**
+	 * Parses a line from the Users file into a User object
+	 * @param line line from the Users file to parse
+	 * @return User with its values initialized from the given line
+	 */
 	private User Parse(String line)
 	{
 		User user = new User();
@@ -132,6 +179,11 @@ public class UserFileStorage extends UserStorage
 		return user;
 	}
 
+	/**
+	 * Parses a user into a string to write to a Users file
+	 * @param user User to parse
+	 * @return Line to write to the Users file
+	 */
 	private String Parse(User user)
 	{
 		StorageFormatter formatter = new StorageFormatter();

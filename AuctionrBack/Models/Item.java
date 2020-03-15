@@ -1,8 +1,11 @@
 package AuctionrBack.Models;
 
+/**
+ * Class for storing Items that are up for sale,
+ *  and the details of the auction on that item
+ */
 public class Item
-{   
-    //Private Variables
+{
 	/** Name of the item */
     private String name;
     /** Name of the item's seller */
@@ -98,6 +101,10 @@ public class Item
         this.highestBid = bid;
 	}
 	
+	/**
+	 * Returns whether this auction is over
+	 * @return True if the item's days remaining are < 1, false otherwise
+	 */
 	public boolean IsOver()
 	{
 		return daysRemaining < 1;

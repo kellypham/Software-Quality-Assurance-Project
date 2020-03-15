@@ -12,17 +12,29 @@ import AuctionrBack.Models.Item;
 import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
 import AuctionrBack.Storage.Formatting.StorageFormatter;
 
+/**
+ * Implementation of ItemStorage that reads the items from a file
+ */
 public class ItemFileStorage extends ItemStorage
 {
 	ArrayList<Item> items;
 	private String filename;
 
+	/**
+	 * Initializes the ItemFileStorage to load from a specified file
+	 * @param filename File to read items from
+	 */
 	public ItemFileStorage(String filename)
 	{
 		items = new ArrayList<>();
 		this.filename = filename;
 	}
 
+	/**
+	 * Loads all Items from the specified file into memory to be queried later
+	 * @throws FileNotFoundException If the specified file doesn't exist
+	 * @throws IOException If there's an issue reading the file
+	 */
 	public void Open() throws FileNotFoundException, IOException
 	{
 		FileReader file = new FileReader(filename);
@@ -41,6 +53,11 @@ public class ItemFileStorage extends ItemStorage
 		reader.close();
 	}
 
+	/**
+	 * Writes all Items to a specified output file
+	 * @param outputFile File to output items to
+	 * @throws IOException If there's an issue writing to the file
+	 */
 	public void Write(String outputFile) throws IOException
 	{
 		FileWriter file = new FileWriter(outputFile);
@@ -58,6 +75,10 @@ public class ItemFileStorage extends ItemStorage
 		writer.close();
 	}
 
+	/**
+	 * Get all items currently up for auction
+	 * @return All items currently up for auction
+	 */
 	@Override
 	public Item[] All()
 	{
@@ -76,6 +97,10 @@ public class ItemFileStorage extends ItemStorage
 		return allItems;
 	}
 
+	/**
+	 * Get a specific item by its name
+	 * @return The Item with a matching name
+	 */
 	@Override
 	public Item GetByName(String name) throws ItemNotFoundException
 	{
@@ -94,12 +119,21 @@ public class ItemFileStorage extends ItemStorage
 		throw new ItemNotFoundException("Item '" + name + "' not found");
 	}
 
+	/**
+	 * Create an item. Changes are written to memory, and must be output with Write()
+	 * @param Item The Item to create
+	 */
 	@Override
 	public void Create(Item item)
 	{
 		items.add(item);
 	}
 
+	/**
+	 * Update an item. Changes are written to memory, and must be output with Write()
+	 * @param Item The Item to update
+	 * @throws ItemNotFoundException If there is no item matching the name provided
+	 */
 	@Override
 	public void Update(Item toUpdate) throws ItemNotFoundException
 	{
@@ -117,6 +151,10 @@ public class ItemFileStorage extends ItemStorage
 		throw new ItemNotFoundException("Item '" + toUpdate.GetName() + "' not found");
 	}
 
+	/**
+	 * Delete an item. Changes are written to memory, and must be output with Write()
+	 * @param Item The Item to delete
+	 */
 	public void Delete(Item toDelete)
 	{
 		for (int i = 0; i < items.size(); i++)
@@ -131,6 +169,11 @@ public class ItemFileStorage extends ItemStorage
 		}
 	}
 
+	/**
+	 * Assigns all properties from one Item to another
+	 * @param source Item to get properties from
+	 * @param dest Item to write properties to
+	 */
 	private void Assign(Item source, Item dest)
 	{
 		dest.SetName(source.GetName());
@@ -140,6 +183,11 @@ public class ItemFileStorage extends ItemStorage
 		dest.SetDaysRemaining(source.GetDaysRemaining());
 	}
 
+	/**
+	 * Parses a line from the Log file into an Item
+	 * @param line Line from the Items file to parse
+	 * @return Item with properties set from the log file
+	 */
 	private Item Parse(String line)
 	{
 		Item i = new Item();
@@ -161,6 +209,11 @@ public class ItemFileStorage extends ItemStorage
 		return i;
 	}
 
+	/**
+	 * Parses an item into a string to write to the Items file
+	 * @param item Item to parse
+	 * @return The line in the Items file representing this object
+	 */
 	private String Parse(Item item)
 	{
 		StorageFormatter formatter = new StorageFormatter();
