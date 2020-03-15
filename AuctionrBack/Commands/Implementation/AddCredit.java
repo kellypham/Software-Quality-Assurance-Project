@@ -2,56 +2,51 @@ package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
-import AuctionrBack.Storage.ItemStorage;
+import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Storage.Exceptions.*;
 
-public class Advertise extends Command {
+public class AddCredit extends Command {
+	
+	private String[] args;
+    private UserStorage userStorage;
+    
+    private final int maxCredit = 1000;
 
-	private static final String[] args = null;
-	
-	private final int limitPrice = 1000;
-	private final int limitItemName = 25;
-	private final int limitNumOfDays = 100;
-	
-    public Advertise(String[] args){
+    public AddCredit(String[] args){
 		super(args);
     }
 
-    public void Validate(){
-        //Check the maximum price for an item is 1000
-    	String price = this.args[2];
-    	if (Integer.parseInt(price) >= 1000){
-    		System.out.println("Error: The price of Item is greater than 999.99");
+    public void Validate() throws MyException, UserNotFoundException {
+    	String newcredit = this.args[1];
+    	String userName = this.args[2];
+    	User user = this.userStorage.GetByName(userName);
+    	UserType type = user.GetType();
+    	
+    	//User must be an admin account
+    	if (type.toString() != "AA") {
+    		throw new MyException("Error: User must be an admin account");
     	}
     	
-    	//Check the maximum length of an item name is 25 characters
-    	String name = this.args[1];
-    	if (name.length() > 25) {
-    		System.out.println("Error: The length of Item name is greater than 25 characters");
-    	}
-    	
-    	//Check the maximum number of days to auction is 100
-    	String numOfDays = this.args[3];
-    	if (Integer.parseInt(numOfDays) > 100) {
-    		System.out.println("Error: The number of days to auction is greater than 100");
+    	//A maximum of $1000.00 can be added to an account 
+    	if (Integer.parseInt(newcredit) > maxCredit) {
+    		throw new MyException("Error: The maximum credit is $1000.00");
     	}
     }
-    
-    //Put up an item for auction
-    public void Execute(){
-    	Item item = new Item();
-    	
-    	//Args Variables
-    	String itemName = this.args[1];
-        String minBid = this.args[2];
-        String numOfDays = this.args[3];
+
+    //add credit into the system for the purchase of accounts
+    public void Execute() throws ItemNotFoundException, UserNotFoundException{
+    	//Args Variable
+        String newcredit = this.args[1];
+        String userName = this.args[2];
         
+        //Finding the User
+        User user = this.userStorage.GetByName(userName);
         
-        //Execute
-        item.SetName(itemName);
-        item.SetHighestBid(Integer.parseInt(minBid));
-        item.SetDaysRemaining(Integer.parseInt(numOfDays));
-        
-        this.ItemStorage.Create(item);
-       
+        int credit = user.GetCredit();
+        credit += Integer.parseInt(newcredit);
+
+        //Execute the variable
+        user.SetCredit(credit);
     }
+
 }
