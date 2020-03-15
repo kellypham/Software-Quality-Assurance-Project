@@ -1,22 +1,32 @@
 package AuctionrBack.Commands.Implementation;
 
 import AuctionrBack.Commands.Command;
-import AuctionrBack.Models.Item;
-import AuctionrBack.Storage.ItemStorage;
-import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
-import AuctionrBack.Storage.Exceptions.MyException;
+import AuctionrBack.Models.*;
+import AuctionrBack.Storage.*;
+import AuctionrBack.Storage.Exceptions.*;
 
 public class Bid extends Command {
 	
 	private String[] args;
     private ItemStorage itemStorage;
+    private UserStorage userStorage;
 	
 
     public Bid(String[] args){
 		super(args);
     }
 
-    public void Validate() throws MyException, ItemNotFoundException{
+    public void Validate() throws MyException, ItemNotFoundException, UserNotFoundException{
+    	//only accepted when logged in any type of account except standard-sell
+    	String userName = this.args[2];
+    	User user = this.userStorage.GetByName(userName);
+    	UserType type = user.GetType();
+    	
+    	if (type.toString() == "SS") {
+    		throw new MyException("Error: User must not a sell-standard account");
+    	}
+    	
+    	
     	//item name must be an existing item with the exception
     	
     	String itemName = this.args[1];
