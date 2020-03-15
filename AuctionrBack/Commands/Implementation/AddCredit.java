@@ -4,48 +4,50 @@ import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.UserStorage;
 
-public class AddCredit extends Command {
-	
-	private String[] args;
+public class AddCredit extends Command
+{
     private UserStorage userStorage;
     
-    private final int maxCredit = 1000;
+	private final int MAX_CREDIT = 1000;
+	
+	User user;
 
-    public AddCredit(String[] args){
+	String username;
+	int addCredit;
+
+	int newCredit;
+
+	public AddCredit(String[] args, UserStorage userStorage)
+	{
 		super(args);
+		this.userStorage = userStorage;
+
+		addCredit = Integer.parseInt(args[1]);
+    	username = args[2];
     }
 
-    public void Validate() throws Exception{
-    	String newcredit = this.args[1];
-    	String userName = this.args[2];
-    	User user = this.userStorage.GetByName(userName);
-    	UserType type = user.GetType();
-    	
-    	//User must be an admin account
-    	if (type.toString() != "AA") {
-    		throw new Exception("Error: User must be an admin account");
-    	}
+	/**
+	 * Checks that the user exists and that the amount of
+	 *  credit to add isn't above the maximum
+	 */
+	public void Validate() throws Exception
+	{
+		user = this.userStorage.GetByName(username);
     	
     	//A maximum of $1000.00 can be added to an account 
-    	if (Integer.parseInt(newcredit) > maxCredit) {
+		if (addCredit > MAX_CREDIT)
+		{
     		throw new Exception("Error: The maximum credit is $1000.00");
     	}
     }
 
-    //add credit into the system for the purchase of accounts
-    public void Execute() throws Exception{
-    	//Args Variable
-        String newcredit = this.args[1];
-        String userName = this.args[2];
-        
-        //Finding the User
-        User user = this.userStorage.GetByName(userName);
-        
-        int credit = user.GetCredit();
-        credit += Integer.parseInt(newcredit);
-
-        //Execute the variable
-        user.SetCredit(credit);
+	/**
+	 * Adds the credit to the user and updates it in long term storage
+	 */
+	public void Execute() throws Exception
+	{
+		user.SetCredit(user.GetCredit() + newCredit);
+		userStorage.Update(user);
     }
 
 }
