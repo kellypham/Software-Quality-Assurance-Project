@@ -96,7 +96,10 @@ public class Item
 	public void SetHighestBid(int bid)
 	{
         this.highestBid = bid;
-    }
-
-
+	}
+	
+	public boolean IsOver()
+	{
+		return daysRemaining < 1;
+	}
 }
