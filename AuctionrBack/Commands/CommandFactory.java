@@ -34,7 +34,7 @@ public class CommandFactory
 		}
 		else if (code == CODE_DELETE)
 		{
-			return new DeleteCommand(args, userStorage, itemStorage)
+			return new DeleteCommand(args, userStorage, itemStorage);
 		}
 		else if (code == CODE_ADD_CREDIT)
 		{
