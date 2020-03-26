@@ -12,7 +12,6 @@ public class Refund extends Command {
     //Constructor
     public Refund(String[] args){
 		  super(args);
-      this.args = args;
     }
 
     //Valdidating the Refund arguments
@@ -27,15 +26,14 @@ public class Refund extends Command {
         //User sellerUser = this.userStorage.GetByName(seller);
 
         //Validiating that the number of arguments is correct
-        if(this.args.length != 4){
+        if(this.args.length != 3){
           throw new Exception("Error: The arguments doesn't have the required length ");
         }
         //checking if buyer's and user's are a valid user will throw an exception
         this.userStorage.GetByName(buyer);
         this.userStorage.GetByName(seller);
-
+        
     }
-
     //Executing the Refund arguments
     public void Execute() throws Exception{
       //Getting the Strings 

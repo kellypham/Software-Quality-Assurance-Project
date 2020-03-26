@@ -47,7 +47,7 @@ public class Main {
 
 			LogEntry entry = log.NextItem();
 			Command command = commandFactory.Create(entry);
-
+			
 			try {
 				command.Validate();
 			} catch (Exception ex) {

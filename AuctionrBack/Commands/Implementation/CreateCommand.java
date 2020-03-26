@@ -7,38 +7,46 @@ import AuctionrBack.Storage.UserStorage;
 public class CreateCommand extends Command {
     private String[] args;
     private UserStorage userStorage;
+    
+    //Variables for Validate and Execute
+    int balance;
+    String username;
+    String stringType;
+    User user;
 
-	public CreateCommand(String[] args)
+	public CreateCommand(String[] args, UserStorage userStorage)
 	{
 		super(args);
-        this.args = args;
+		this.userStorage = userStorage;
+		
+		//Setting variables equal to the args
+		balance = Integer.parseInt(this.args[2]);
+		stringType = this.args[1];
+		username = this.args[0];
     }
 
 
 	public void Validate() throws Exception{
-        //The amount of credits is greater than 999,999 
-        String balance = this.args[3];
-        if (Integer.parseInt(balance) > 999999){
+        
+        //If the user is not current
+        if (userStorage.GetByName(username) != null){
+        	throw new Exception("User already exists");
+        }
+        //If the balance is creater than 9999999
+        if (balance > 999999){
             throw new Exception("The balance is greater than 9999999 ");
         }
 
         //If there are too many arguments for Create Command
-        if (this.args.length != 4){
+        if (this.args.length != 3){
             throw new Exception("Error: The arguments doesnt have the required length");
         }
     }
 
     public void Execute(){
-        //Creating a new user
-        User user = new User();
-        
-        //Args Variable
-        String name = this.args[1];
-        String stringType = this.args[2];
-        String balance = this.args[3];
-
-        //Executing Variables
-        user.SetName(name);
+      
+    	//Setting UserName
+        user.SetName(username);
         
         //Getting the user type
         UserType ret = null;
@@ -47,10 +55,10 @@ public class CreateCommand extends Command {
 				ret = type;
 			}
 		}
-        
-		//Setting the UserType
+    
+		//Setting the User info and creating the user
         user.SetType(ret);
-        user.SetCredit(Integer.parseInt(balance));
+        user.SetCredit(balance);
         this.userStorage.Create(user);
     }
 
