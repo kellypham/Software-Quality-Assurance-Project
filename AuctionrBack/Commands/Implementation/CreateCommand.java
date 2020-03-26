@@ -28,11 +28,11 @@ public class CreateCommand extends Command {
 
 	public void Validate() throws Exception{
         
-        //If the user is not current
+        //If the user is already in the database
         if (userStorage.GetByName(username) != null){
         	throw new Exception("User already exists");
         }
-        //If the balance is creater than 9999999
+        //If the balance is greater than 9999999
         if (balance > 999999){
             throw new Exception("The balance is greater than 9999999 ");
         }
