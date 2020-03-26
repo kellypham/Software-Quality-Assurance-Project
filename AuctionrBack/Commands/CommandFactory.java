@@ -28,27 +28,27 @@ public class CommandFactory
 		String code = entry.TransactionCode();
 		String[] args = entry.Arguments();
 
-		if (code == CODE_CREATE)
+		if (code.equals(CODE_CREATE))
 		{
 			return new AddCredit(args, userStorage);
 		}
-		else if (code == CODE_DELETE)
+		else if (code.equals(CODE_DELETE))
 		{
 			return new DeleteCommand(args, userStorage, itemStorage);
 		}
-		else if (code == CODE_ADD_CREDIT)
+		else if (code.equals(CODE_ADD_CREDIT))
 		{
 			return new AddCredit(args, userStorage);
 		}
-		else if (code == CODE_ADVERTISE)
+		else if (code.equals(CODE_ADVERTISE))
 		{
 			return new Advertise(args);
 		}
-		else if (code == CODE_BID)
+		else if (code.equals(CODE_BID))
 		{
 			return new Bid(args);
 		}
-		else if (code == CODE_REFUND)
+		else if (code.equals(CODE_REFUND))
 		{
 			return new Refund(args);
 		}

@@ -7,6 +7,7 @@ import AuctionrBack.Models.Item;
 import AuctionrBack.Models.User;
 import AuctionrBack.Storage.*;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
+import jdk.jfr.events.ExceptionThrownEvent;
 
 public class Main {
 	private static UserFileStorage userStorage;
@@ -52,14 +53,14 @@ public class Main {
 				command.Validate();
 			} catch (Exception ex) {
 				System.out.println(
-						"ERROR: Validation error on line " + entryNumber + ": " + ex.getMessage() + "; Ignoring entry");
+						"ERROR: Validation error on line " + entryNumber + ": " + ex + "; Ignoring entry");
 				continue;
 			}
 
 			try {
 				command.Execute();
 			} catch (Exception ex) {
-				System.out.println("ERROR: Fatal error on line " + entryNumber + ": " + ex.getMessage());
+				System.out.println("ERROR: Fatal error on line " + entryNumber + ": " + ex);
 
 				System.exit(1);
 			}
@@ -82,13 +83,13 @@ public class Main {
 		try {
 			userStorage.Write("newusers.txt");
 		} catch (Exception ex) {
-			System.out.println("ERROR: Could not write new users file: " + ex.getMessage());
+			System.out.println("ERROR: Could not write new users file: " + ex);
 		}
 
 		try {
 			itemStorage.Write("newitems.txt");
 		} catch (Exception ex) {
-			System.out.println("ERROR: Could not write new items file: " + ex.getMessage());
+			System.out.println("ERROR: Could not write new items file: " + ex);
 		}
 
 		System.out.println("Done");
