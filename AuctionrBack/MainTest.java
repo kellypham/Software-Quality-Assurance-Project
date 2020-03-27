@@ -5,18 +5,23 @@ import org.junit.Test;
 import junit.framework.Assert;
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Commands.CommandFactory;
+import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Input.*;
 import AuctionrBack.Models.Item;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.UserType;
 import AuctionrBack.Storage.*;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
+import AuctionrBack.Storage.Formatting.StorageFormatter;
+
+
 
 public class MainTest {
 	
 	// Variables used for testing
 	private Item item = new Item();
 	private User user = new User();
+	private DailyLogFile log = new DailyLogFile("log.txt");
 	private static ItemFileStorage itemStorage;
 	
 	/**Item Tests
@@ -88,25 +93,140 @@ public class MainTest {
 		assertEquals(user.IsAdmin(), true);
 	}
 	
+	/**Refund Tests
+	 * Testing Refund Functionality
+	 * Methods Validate, Execute 
+	 */
+	@Test
+	public void RefundTestValidate(){
+		String[] args = {"userone", "sellerone", "20"};
+		Command command = new Refund(args);
+
+		try{
+			command.Validate();
+		}
+		catch (Exception ex){
+			
+		}
+	}
+	
+	
+	
 	/**ItemFileStorage Tests
-	 * Testing Storage Formatter Functionality
+	 * Testing ItemFileStorage Functionality
 	 * Methods Item Parse and String Parse 
 	 */
-	/*
 	@Test
-	public void StorageFormatterItemParseTest() {
-		
+	//Testing Pad(String s, int size)
+	public void StorageFormatterItemParseStringTest() {
 		//Item used for testing the functionality Item Parse
-		Item i = new Item();
-		i.SetName("test_item");
-		i.SetSellerName("sellerone");
-		i.SetHighestBidderName("userone");
-		i.SetDaysRemaining(10);
-		i.SetHighestBid(1);
+		StorageFormatter formatter = new StorageFormatter();
+		String returnValue = formatter.Pad("Nintendo Switch", 15);
+		assertEquals(returnValue, "Nintendo Switch               ");
 		
-		itemStorage = new ItemFileStorage("items.txt");
+	}
+	
+	@Test
+	//Testing Pad(int value, int size)
+	public void StorageFormatterItemParseNumberTest(){
+		//Item used for testing the functionality Item Parse
+		StorageFormatter formatter = new StorageFormatter();
+		String returnValue = formatter.Pad(15, 9);
+		assertEquals(returnValue, "15         ");		
+	}
+	
+	/**LogEntry Tests
+	 * Testing LogEntry Functionality
+	 * Methods String Transaction Code and String[] Arguments
+	 * 
+	 */
+	
+	@Test
+	public void LogEntryTransactionCodeTest(){
+		String code = "AA";
+		String[] args = {"userOne", "hey", "hello"};
+		LogEntry logEntry = new LogEntry(code, args);
+		assertEquals(logEntry.TransactionCode(), "AA");
+		
+	}
+	
+	
+	@Test
+	public void LogEntryArgumentsTest(){
+		String code = "AA";
+		String[] args = {"userOne", "hey", "hello"};
+		LogEntry logEntry = new LogEntry(code, args);
+		assertArrayEquals(logEntry.Arguments(), args);
+	}
+	
+	/**DailyLogFile Tests
+	 * Testing Initialize() NextItem() IsEmpty()
+	 * Methods String Transaction Code and String[] Arguments
+	 * 
+	 */
+	
+	@Test
+	public void DailyLogFileInitializeTest(){
+		try{
+			log.Initialize();
+		}
+		catch(Exception ex){
+			//Throws an exception
+		}
+	}
+	
+	/* TODO Trying to fail this class not sure how to do it 
+	@Test(expected = java.io.FileNotFoundException.class)
+	public void DailyLogFileInitializeFailTest(){
+		DailyLogFile log = new DailyLogFile("LOL.txt");
+		try{
+			log.Initialize();
+		}
+		catch(Exception ex){
+			//Throws an exception
+			System.out.println(ex);
+		}
+		
 	}
 	*/
+	
+	@Test
+	public void DailyLogFileNextItemTest(){
+		try{
+			log.Initialize();
+		}
+		catch(Exception ex){
+			//Throws an exception
+			
+		}
+		String[] args = {"userone", "FS", "1"};
+		LogEntry result = log.NextItem();
+		assertArrayEquals(result.Arguments(), args);
+		
+	}
+
+	
+	@Test
+	public void DailyLogFileIsEmptyTestTrue(){
+		assertEquals(log.IsEmpty(), true);
+	}
+	
+	@Test
+	public void DailyLogFileIsEmptyTestFalse(){
+		try{
+			log.Initialize();
+		}
+		catch(Exception ex){
+			
+		}
+		assertEquals(log.IsEmpty(), false);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

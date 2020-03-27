@@ -6,6 +6,7 @@ public abstract class Command
 {
 	public Command(String[] args)
 	{
+		
 	}
 
 	public abstract void Validate() throws Exception;

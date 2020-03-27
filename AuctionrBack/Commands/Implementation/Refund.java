@@ -26,8 +26,8 @@ public class Refund extends Command {
         //User sellerUser = this.userStorage.GetByName(seller);
 
         //Validiating that the number of arguments is correct
-        if(this.args.length != 3){
-          throw new Exception("Error: The arguments doesn't have the required length ");
+        if(this.args.length != 2){
+          throw new Exception("Error: The arguments don't have the required length ");
         }
         //checking if buyer's and user's are a valid user will throw an exception
         this.userStorage.GetByName(buyer);
