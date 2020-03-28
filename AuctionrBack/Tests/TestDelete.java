@@ -7,10 +7,7 @@ import org.junit.Test;
 import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.Item;
-import AuctionrBack.Storage.UserFileStorage;
-import AuctionrBack.Storage.UserStorage;
-import AuctionrBack.Storage.ItemFileStorage;
-import AuctionrBack.Storage.ItemStorage;
+import AuctionrBack.Storage.*;
 public class TestDelete {
 
 	@Test

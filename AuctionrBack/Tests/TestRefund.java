@@ -4,8 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import AuctionrBack.Commands.Implementation.Refund;
 import AuctionrBack.Models.User;
-import AuctionrBack.Storage.UserFileStorage;
-import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Storage.*;
 
 public class TestRefund
 {

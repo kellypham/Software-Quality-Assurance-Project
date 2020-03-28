@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
-import AuctionrBack.Storage.UserFileStorage;
-import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Storage.*;
 
 public class TestCreate {
 

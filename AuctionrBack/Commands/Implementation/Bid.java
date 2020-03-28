@@ -11,8 +11,11 @@ public class Bid extends Command {
     private UserStorage userStorage;
 	
 
-    public Bid(String[] args){
+    public Bid(String[] args, UserStorage userStorage, ItemStorage itemStorage){
 		super(args);
+
+		this.userStorage = userStorage;
+		this.itemStorage = itemStorage;
     }
 
     public void Validate() throws Exception{
@@ -26,7 +29,6 @@ public class Bid extends Command {
     	}
     	
     	//item name must be an existing item with the exception
-    	
     	String itemName = this.args[1];
     	Item item = this.itemStorage.GetByName(itemName);
     	int oldbid = item.GetHigestBid();

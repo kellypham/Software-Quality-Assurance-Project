@@ -4,10 +4,7 @@ import org.junit.Test;
 
 import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
-import AuctionrBack.Storage.ItemFileStorage;
-import AuctionrBack.Storage.ItemStorage;
-import AuctionrBack.Storage.UserFileStorage;
-import AuctionrBack.Storage.UserStorage;
+import AuctionrBack.Storage.*;
 
 public class TestAddCredit
 {
@@ -29,7 +26,7 @@ public class TestAddCredit
 	@Test(expected=IllegalArgumentException.class)
 	public void AddCreditUserNotFound() throws Exception
 	{
-		String[] args = {"User", "AA", "100"};
+		String[] args = {"userone", "AA", "100"};
 		UserStorage storage = new UserFileStorage("users.txt");
 		
 		AddCredit command = new AddCredit(args, storage);
