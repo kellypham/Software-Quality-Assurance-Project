@@ -39,22 +39,23 @@ public class Refund extends Command {
       //Getting the Strings 
       String buyerString = this.args[1];
       String sellerString = this.args[2];
-
+      
+      //Converting String to Int
       int credits = Integer.parseInt(this.args[3]);
 
       //Getting the User of the strings
       User buyerUser = this.userStorage.GetByName(buyerString);
       User sellerUser = this.userStorage.GetByName(sellerString);
 
-      //Getting the Buyer and Seller Credit
+      //Getting Seller and Buyer Credits
       int buyerCredit = buyerUser.GetCredit();
       int sellerCredit = sellerUser.GetCredit();
 
-      //Calculations
+      //Adding Credits to buyer and Selling Credits from seller
       buyerCredit += credits;
       sellerCredit -= credits;
 
-      //Updating the credits
+      //Setting buyer and seller credits 
       buyerUser.SetCredit(buyerCredit);
       sellerUser.SetCredit(sellerCredit); 
 

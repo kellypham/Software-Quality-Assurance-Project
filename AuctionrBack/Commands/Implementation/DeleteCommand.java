@@ -35,6 +35,7 @@ public class DeleteCommand extends Command
 	public void Execute() throws Exception
 	{
 		userStorage.Delete(user);
+		
     }
 
 }

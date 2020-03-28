@@ -20,9 +20,9 @@ public class CreateCommand extends Command {
 		this.userStorage = userStorage;
 		
 		//Setting variables equal to the args
-		balance = Integer.parseInt(this.args[2]);
-		stringType = this.args[1];
-		username = this.args[0];
+		balance = Integer.parseInt(args[2]);
+		stringType = args[1];
+		username = args[0];
     }
 
 

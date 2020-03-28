@@ -1,4 +1,4 @@
-package AuctionrBack;
+package AuctionrBack.Tests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -28,6 +28,7 @@ public class MainTest {
 	 * Testing Setters and Getters for Items
 	 * Combining them into one so we can test Set and Get Together
 	 */
+	/*
 	@Test
 	public void SetGetItemNameTest() {
 		item.SetName("Nintendo Switch");
@@ -64,11 +65,14 @@ public class MainTest {
 		item.SetDaysRemaining(20);
 		assertEquals(item.IsOver(), false);
 	}
+	*/
+	
 	
 	/**Users Test
 	 * Testing Setters and Getters for Users
 	 * Combining them into one so we can test Set and Get Together
 	 */
+	/*
 	@Test
 	public void SetGetUserNameTest() {
 		user.SetName("Bob");
@@ -92,30 +96,13 @@ public class MainTest {
 		user.SetType(UserType.ADMIN);
 		assertEquals(user.IsAdmin(), true);
 	}
+	*/
 	
-	/**Refund Tests
-	 * Testing Refund Functionality
-	 * Methods Validate, Execute 
-	 */
-	@Test
-	public void RefundTestValidate(){
-		String[] args = {"userone", "sellerone", "20"};
-		Command command = new Refund(args);
-
-		try{
-			command.Validate();
-		}
-		catch (Exception ex){
-			
-		}
-	}
-	
-	
-	
-	/**ItemFileStorage Tests
-	 * Testing ItemFileStorage Functionality
+	/**StorageFormatter Tests
+	 * Testing StorageFormatter Functionality
 	 * Methods Item Parse and String Parse 
 	 */
+	/*
 	@Test
 	//Testing Pad(String s, int size)
 	public void StorageFormatterItemParseStringTest() {
@@ -134,6 +121,7 @@ public class MainTest {
 		String returnValue = formatter.Pad(15, 9);
 		assertEquals(returnValue, "15         ");		
 	}
+	*/
 	
 	/**LogEntry Tests
 	 * Testing LogEntry Functionality
@@ -141,6 +129,7 @@ public class MainTest {
 	 * 
 	 */
 	
+	/*
 	@Test
 	public void LogEntryTransactionCodeTest(){
 		String code = "AA";
@@ -158,13 +147,15 @@ public class MainTest {
 		LogEntry logEntry = new LogEntry(code, args);
 		assertArrayEquals(logEntry.Arguments(), args);
 	}
+	*/
+	
 	
 	/**DailyLogFile Tests
 	 * Testing Initialize() NextItem() IsEmpty()
 	 * Methods String Transaction Code and String[] Arguments
 	 * 
 	 */
-	
+	/*
 	@Test
 	public void DailyLogFileInitializeTest(){
 		try{
@@ -175,20 +166,6 @@ public class MainTest {
 		}
 	}
 	
-	/* TODO Trying to fail this class not sure how to do it 
-	@Test(expected = java.io.FileNotFoundException.class)
-	public void DailyLogFileInitializeFailTest(){
-		DailyLogFile log = new DailyLogFile("LOL.txt");
-		try{
-			log.Initialize();
-		}
-		catch(Exception ex){
-			//Throws an exception
-			System.out.println(ex);
-		}
-		
-	}
-	*/
 	
 	@Test
 	public void DailyLogFileNextItemTest(){
@@ -208,7 +185,7 @@ public class MainTest {
 	
 	@Test
 	public void DailyLogFileIsEmptyTestTrue(){
-		assertEquals(log.IsEmpty(), true);
+		assertTrue(log.IsEmpty());
 	}
 	
 	@Test
@@ -219,12 +196,10 @@ public class MainTest {
 		catch(Exception ex){
 			
 		}
-		assertEquals(log.IsEmpty(), false);
+		assertFalse(log.IsEmpty());
 	}
 	
-	
-	
-	
+	*/
 	
 	
 	
