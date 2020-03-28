@@ -68,5 +68,19 @@ public class User
 	{
 		return this.type == UserType.ADMIN;
     }
-    
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null || this.getClass() != obj.getClass())
+		{
+			return false;
+		}
+
+		User user = (User)obj;
+
+		return GetName().equals(user.GetName())
+			&& GetType().equals(user.GetType())
+			&& GetCredit() == user.GetCredit();
+	}
 }
