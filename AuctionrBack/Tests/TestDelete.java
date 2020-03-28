@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import AuctionrBack.Commands.Implementation.AddCredit;
-import AuctionrBack.Commands.Implementation.CreateCommand;
-import AuctionrBack.Commands.Implementation.DeleteCommand;
+import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.Item;
 import AuctionrBack.Storage.UserFileStorage;
