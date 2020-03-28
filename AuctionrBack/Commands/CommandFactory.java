@@ -30,7 +30,7 @@ public class CommandFactory
 
 		if (code.equals(CODE_CREATE))
 		{
-			return new AddCredit(args, userStorage);
+			return new CreateCommand(args, userStorage);
 		}
 		else if (code.equals(CODE_DELETE))
 		{
