@@ -14,8 +14,11 @@ public class Advertise extends Command {
 	private final int limitItemName = 25;
 	private final int limitNumOfDays = 100;
 	
-    public Advertise(String[] args){
+    public Advertise(String[] args,UserStorage userStorage, ItemStorage itemStorage){
 		super(args);
+		
+		this.userStorage = userStorage;
+		this.itemStorage = itemStorage;
     }
 
     public void Validate() throws Exception{

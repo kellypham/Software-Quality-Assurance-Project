@@ -11,7 +11,7 @@ public class TestAddCredit
 	@Test
 	public void AddCreditSuccessTest() throws Exception
 	{
-		String[] args = {"User", "AA", "1"};
+		String[] args = {"User", "AA", "100"};
 		UserStorage storage = new UserFileStorage("users.txt");
 		
 		AddCredit command = new AddCredit(args, storage);
@@ -37,7 +37,7 @@ public class TestAddCredit
 	@Test(expected=IllegalArgumentException.class)
 	public void AddCreditAmountOverLimitTest() throws Exception
 	{
-		String[] args = {"User", "AA", "99999999"};
+		String[] args = {"User", "AA", "1001"};
 		UserStorage storage = new UserFileStorage("users.txt");
 		
 		AddCredit command = new AddCredit(args, storage);
