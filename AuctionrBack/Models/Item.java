@@ -7,11 +7,11 @@ package AuctionrBack.Models;
 public class Item
 {
 	/** Name of the item */
-    private String name;
+    private String name = "";
     /** Name of the item's seller */
-    private String sellerName;
+    private String sellerName = "";
     /** Name of the item's highest bidder */
-    private String highestBidderName;
+    private String highestBidderName = "";
     /** Number of days remaining to bid on this item */
     private int daysRemaining;
     /** Highest bid on this item */
@@ -108,5 +108,22 @@ public class Item
 	public boolean IsOver()
 	{
 		return daysRemaining < 1;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null || this.getClass() != obj.getClass())
+		{
+			return false;
+		}
+
+		Item item = (Item)obj;
+		
+		return GetName().equals(item.GetName())
+				&& GetSellerName().equals((item.GetSellerName()))
+				&& GetHighestBidderName().equals((item.GetHighestBidderName()))
+				&& GetDaysRemaining() == item.GetDaysRemaining()
+				&& GetHigestBid() == item.GetHigestBid();
 	}
 }

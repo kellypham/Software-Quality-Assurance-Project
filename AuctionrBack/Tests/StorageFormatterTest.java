@@ -12,7 +12,7 @@ public class StorageFormatterTest
 	public void PadString()
 	{
 		final int NEW_LENGTH = 10;
-		String original = "";
+		String original = "Str";
 
 		StorageFormatter formatter = new StorageFormatter();
 		String modified = formatter.Pad(original, NEW_LENGTH);

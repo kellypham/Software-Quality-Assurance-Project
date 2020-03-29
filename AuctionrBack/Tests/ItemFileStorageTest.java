@@ -14,17 +14,20 @@ import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
 public class ItemFileStorageTest
 {
 	final String Item_FILE = "Items.txt";
-	final int TEST_FILE_ITEM_COUNT = 4;
 
 	@Test
 	public void LoadsItems() throws Exception
 	{
+		final int TEST_FILE_ITEM_COUNT = 1;
+
 		ItemFileStorage storage = new ItemFileStorage(Item_FILE);
 		storage.Open();
 
 		//Check the correct amount of items have been loaded
 		Item[] all = storage.All();
-		assertEquals(TEST_FILE_ITEM_COUNT, all.length);
+		assertEquals("The number of items loaded differs from the expected amount",
+			TEST_FILE_ITEM_COUNT, all.length
+		);
 	}
 
 	@Test
@@ -100,17 +103,17 @@ public class ItemFileStorageTest
 	{
 		final String ITEM_NAME = "Item";
 		
-		Item Item = new Item();
-		Item.SetName(ITEM_NAME);
+		Item item = new Item();
+		item.SetName(ITEM_NAME);
 
 		ItemFileStorage storage = new ItemFileStorage(Item_FILE);
-		storage.Create(Item);
+		storage.Create(item);
 
-		Item.SetName(ITEM_NAME + "2");
-		storage.Update(Item);
+		item.SetDaysRemaining(10);
+		storage.Update(item);
 
 		Item inStorage = storage.GetByName(ITEM_NAME);
-		assertEquals(Item, inStorage);
+		assertEquals(item, inStorage);
 	}
 
 	@Test(expected=ItemNotFoundException.class)

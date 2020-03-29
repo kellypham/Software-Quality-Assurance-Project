@@ -13,9 +13,9 @@ public class StorageFormatter
 	 */
 	public String Pad(String s, int size)
 	{
-		int finalSize = s.length() + size;
+		int sizeDifference = size - s.length();
 
-		for (int i = s.length(); i < finalSize; i++)
+		for (int i = 0; i < sizeDifference; i++)
 		{
 			s += ' ';
 		}
