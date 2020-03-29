@@ -16,6 +16,7 @@ public class Advertise extends Command {
 	
     public Advertise(String[] args, UserStorage userStorage, ItemStorage itemStorage){
 		super(args);
+		this.args = args;
 		
 		this.userStorage = userStorage;
 		this.itemStorage = itemStorage;
@@ -23,7 +24,7 @@ public class Advertise extends Command {
 
     public void Validate() throws Exception{
     	//only accepted when logged in any type of account except standard-buy
-    	String itemName = this.args[1];
+    	String itemName = this.args[0];
     	Item item = this.itemStorage.GetByName(itemName);
     	String seller = item.GetSellerName();
     	
@@ -35,19 +36,19 @@ public class Advertise extends Command {
     	}
     	
         //Check the maximum price for an item is 1000
-    	String price = this.args[2];
+    	String price = this.args[1];
     	if (Integer.parseInt(price) >= limitPrice){
     		throw new Exception("Error: The price of Item is greater than 999.99");
     	}
     	
     	//Check the maximum length of an item name is 25 characters
-    	String name = this.args[1];
+    	String name = this.args[0];
     	if (name.length() > limitItemName) {
     		throw new Exception("Error: The length of Item name is greater than 25 characters");
     	}
     	
     	//Check the maximum number of days to auction is 100
-    	String numOfDays = this.args[3];
+    	String numOfDays = this.args[2];
     	if (Integer.parseInt(numOfDays) > limitNumOfDays) {
     		throw new Exception("Error: The number of days to auction is greater than 100");
     	}
@@ -57,10 +58,9 @@ public class Advertise extends Command {
     public void Execute(){
     	Item item = new Item();
     	
-    	//Args Variables
-    	String itemName = this.args[1];
-        String minBid = this.args[2];
-        String numOfDays = this.args[3];
+    	String itemName = this.args[0];
+        String minBid = this.args[1];
+        String numOfDays = this.args[2];
         
         
         //Execute

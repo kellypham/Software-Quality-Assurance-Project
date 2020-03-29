@@ -3,7 +3,6 @@ package AuctionrBack.Tests;
 import org.junit.Test;
 
 import AuctionrBack.Commands.Implementation.*;
-import AuctionrBack.Models.User;
 import AuctionrBack.Storage.*;
 
 public class TestBid
@@ -11,9 +10,12 @@ public class TestBid
 	@Test
 	public void BidSuccessTest() throws Exception
 	{
-		String[] args = {"User", "Item", "100"};
-		UserStorage userStorage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		String[] args = {"test_item", "sellerone", "10"};
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		itemStorage.Open();
 		
 		Bid command = new Bid(args, userStorage, itemStorage);
 
@@ -21,24 +23,30 @@ public class TestBid
 		command.Execute();
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=Exception.class)
 	public void BidItemNotFoundTest() throws Exception
 	{
-		String[] args = {"User", "itemone", "100"};
-		UserStorage userStorage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		String[] args = {"itemone", "userone", "100"};
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		itemStorage.Open();
 		
 		Bid command = new Bid(args, userStorage, itemStorage);
 
 		command.Validate();
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=Exception.class)
 	public void BidLowerThanFivePercentageHighestTest() throws Exception
 	{
-		String[] args = {"User", "Item", "95"};
-		UserStorage userStorage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		String[] args = {"test_item", "userone", "1"};
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		itemStorage.Open();
 		
 		Bid command = new Bid(args, userStorage, itemStorage);
 

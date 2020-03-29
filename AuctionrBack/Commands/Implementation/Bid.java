@@ -13,6 +13,7 @@ public class Bid extends Command {
 
     public Bid(String[] args, UserStorage userStorage, ItemStorage itemStorage){
 		super(args);
+		this.args = args;
 
 		this.userStorage = userStorage;
 		this.itemStorage = itemStorage;
@@ -20,7 +21,7 @@ public class Bid extends Command {
 
     public void Validate() throws Exception{
     	//only accepted when logged in any type of account except standard-sell
-    	String userName = this.args[2];
+    	String userName = this.args[1];
     	User user = this.userStorage.GetByName(userName);
     	UserType type = user.GetType();
     	
@@ -29,18 +30,13 @@ public class Bid extends Command {
     	}
     	
     	//item name must be an existing item with the exception
-    	String itemName = this.args[1];
+    	String itemName = this.args[0];
     	Item item = this.itemStorage.GetByName(itemName);
     	int oldbid = item.GetHigestBid();
-    	String newbid = this.args[3];
-    	
-    	//new bid must be greater than the previous highest bid
-    	if (oldbid >= Integer.parseInt(newbid)) {
-    		throw new Exception("Error: The new bid must be greater than the perious bid");
-    	}
+    	String newbid = this.args[2];
     	
     	//new bid must be at least 5% higher than the previous highest bid
-    	if (Integer.parseInt(newbid) < oldbid*0.5) {
+    	if (Integer.parseInt(newbid) < oldbid * 1.05) {
     		throw new Exception("Error: The new bid must be at least 5% higher than the previous highest bid");
     	}
     	
@@ -49,15 +45,18 @@ public class Bid extends Command {
     //make a bid on an item available for auction
     public void Execute() throws Exception{
     	//Args Variable
-        String itemName = this.args[1];
-        String userName = this.args[2];
-        String newbid = this.args[3];
+        String itemName = this.args[0];
+        String userName = this.args[1];
+        String newbid = this.args[2];
         
         //Finding the Item
         Item item = this.itemStorage.GetByName(itemName);
 
-        //Execute the variable
+        //Setting the new bid
         item.SetHighestBid(Integer.parseInt(newbid));
+        
+        //Updating item
+        this.itemStorage.Update(item);
     }
 
 }
