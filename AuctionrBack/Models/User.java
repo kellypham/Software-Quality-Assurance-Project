@@ -5,8 +5,8 @@ package AuctionrBack.Models;
  */
 public class User
 {
-	private String name;
-    private UserType type;
+	private String name = "";
+    private UserType type = UserType.FULL_STANDARD;
     private int credit;
     /**
     * Accessor for user's name.

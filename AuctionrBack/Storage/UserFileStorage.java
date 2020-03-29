@@ -183,12 +183,10 @@ public class UserFileStorage extends UserStorage
 	private User Parse(String line)
 	{
 		User user = new User();
-		
-		String[] separatedLine = line.split("\\s+");
 
-		String name = separatedLine[0];
-		String type = separatedLine[1];
-		int credit = Integer.parseInt(separatedLine[2]);
+		String name = line.substring(0, 16).trim();
+		String type = line.substring(16, 19).trim();
+		int credit = Integer.parseInt(line.substring(19).trim());
 
 		user.SetName(name);
 		user.SetCredit(credit);
