@@ -24,3 +24,12 @@ hs_err_pid*
 
 newitems.txt
 newusers.txt
+testNewItems.txt
+testNewUsers.txt
+
+/out
+
+*.iml
+.idea
+*/.idea
+.project
