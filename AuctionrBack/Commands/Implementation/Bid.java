@@ -4,60 +4,57 @@ import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.*;
 
-public class Bid extends Command {
-	
-	private String[] args;
-    private ItemStorage itemStorage;
+public class Bid extends Command
+{
+	private ItemStorage itemStorage;
     private UserStorage userStorage;
 	
+	private String itemName;
+	private String sellerName;
+	private String bidderName;
+	private int amount;
 
-    public Bid(String[] args, UserStorage userStorage, ItemStorage itemStorage){
+	private User bidder;
+	private Item item;
+
+	public Bid(String[] args, UserStorage userStorage, ItemStorage itemStorage)
+	{
 		super(args);
 
 		this.userStorage = userStorage;
 		this.itemStorage = itemStorage;
+
+		itemName = args[0];
+		sellerName = args[1];
+		bidderName = args[2];
+		amount = Integer.parseInt(args[3]);
     }
 
-    public void Validate() throws Exception{
-    	//only accepted when logged in any type of account except standard-sell
-    	String userName = this.args[2];
-    	User user = this.userStorage.GetByName(userName);
-    	UserType type = user.GetType();
+	public void Validate() throws Exception
+	{
+		item = itemStorage.Query(itemName, sellerName);
+    	bidder = this.userStorage.GetByName(bidderName);
     	
-    	if (type.toString() == "SS") {
-    		throw new Exception("Error: User must not a sell-standard account");
+		if (bidder.GetType() == UserType.SELL_STANDARD)
+		{
+    		throw new IllegalArgumentException("Error: User must not a sell-standard account");
+		}
+		else if (bidder.GetCredit() < amount)
+		{
+			throw new IllegalArgumentException("Error: User balance is below bid");
+		}
+		else if (item.GetHigestBid() * 1.05 >= amount)
+		{
+    		throw new IllegalArgumentException("Error: The new bid must be at least 5% greater than the previous bid");
     	}
-    	
-    	//item name must be an existing item with the exception
-    	String itemName = this.args[1];
-    	Item item = this.itemStorage.GetByName(itemName);
-    	int oldbid = item.GetHigestBid();
-    	String newbid = this.args[3];
-    	
-    	//new bid must be greater than the previous highest bid
-    	if (oldbid >= Integer.parseInt(newbid)) {
-    		throw new Exception("Error: The new bid must be greater than the perious bid");
-    	}
-    	
-    	//new bid must be at least 5% higher than the previous highest bid
-    	if (Integer.parseInt(newbid) < oldbid*0.5) {
-    		throw new Exception("Error: The new bid must be at least 5% higher than the previous highest bid");
-    	}
-    	
     }
     
     //make a bid on an item available for auction
-    public void Execute() throws Exception{
-    	//Args Variable
-        String itemName = this.args[1];
-        String userName = this.args[2];
-        String newbid = this.args[3];
-        
-        //Finding the Item
-        Item item = this.itemStorage.GetByName(itemName);
-
-        //Execute the variable
-        item.SetHighestBid(Integer.parseInt(newbid));
+	public void Execute() throws Exception
+	{
+		item.SetHighestBidderName(bidder.GetName());
+		item.SetHighestBid(amount);
+		
+		itemStorage.Update(item);
     }
-
 }

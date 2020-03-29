@@ -3,72 +3,71 @@ package AuctionrBack.Commands.Implementation;
 import AuctionrBack.Commands.Command;
 import AuctionrBack.Models.*;
 import AuctionrBack.Storage.*;
+import AuctionrBack.Storage.Exceptions.DuplicateItemException;
+import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
 
-public class Advertise extends Command {
+public class Advertise extends Command
+{
+	private final int MAX_PRICE = 1000;
+	private final int NAME_LENGTH_LIMIT = 25;
+	private final int MAX_DAYS = 100;
 
-	private String[] args;
     private ItemStorage itemStorage;
     private UserStorage userStorage;
 	
-	private final int limitPrice = 1000;
-	private final int limitItemName = 25;
-	private final int limitNumOfDays = 100;
+	private String itemName;
+	private String sellerName;
+	private int daysToAuction;
+	private int initialPrice;
+
+	private User seller;
 	
-    public Advertise(String[] args, UserStorage userStorage, ItemStorage itemStorage){
+	public Advertise(String[] args, UserStorage userStorage, ItemStorage itemStorage)
+	{
 		super(args);
 		
 		this.userStorage = userStorage;
 		this.itemStorage = itemStorage;
+
+		itemName = args[0];
+		sellerName = args[1];
+		daysToAuction = Integer.parseInt(args[2]);
+		initialPrice = Integer.parseInt(args[3]);
     }
 
-    public void Validate() throws Exception{
-    	//only accepted when logged in any type of account except standard-buy
-    	String itemName = this.args[1];
-    	Item item = this.itemStorage.GetByName(itemName);
-    	String seller = item.GetSellerName();
+	public void Validate() throws Exception
+	{
+		seller = userStorage.GetByName(sellerName);
     	
-    	User user = this.userStorage.GetByName(seller);
-    	UserType type = user.GetType();
-    	
-    	if (type.toString() == "BS") {
-    		throw new Exception("Error: User must not a buy-standard account");
+		if (seller.GetType() == UserType.BUY_STANDARD)
+		{
+    		throw new IllegalArgumentException("Error: User must not be a buy-standard account");
+		}
+		else if (initialPrice >= MAX_PRICE)
+		{
+    		throw new IllegalArgumentException("Error: The price of Item is greater than 999.99");
     	}
-    	
-        //Check the maximum price for an item is 1000
-    	String price = this.args[2];
-    	if (Integer.parseInt(price) >= limitPrice){
-    		throw new Exception("Error: The price of Item is greater than 999.99");
+		else if (itemName.length() > NAME_LENGTH_LIMIT)
+		{
+    		throw new IllegalArgumentException("Error: The length of Item name is greater than "+NAME_LENGTH_LIMIT+" characters");
     	}
-    	
-    	//Check the maximum length of an item name is 25 characters
-    	String name = this.args[1];
-    	if (name.length() > limitItemName) {
-    		throw new Exception("Error: The length of Item name is greater than 25 characters");
-    	}
-    	
-    	//Check the maximum number of days to auction is 100
-    	String numOfDays = this.args[3];
-    	if (Integer.parseInt(numOfDays) > limitNumOfDays) {
-    		throw new Exception("Error: The number of days to auction is greater than 100");
+		else if (daysToAuction > MAX_DAYS)
+		{
+    		throw new IllegalArgumentException("Error: The number of days to auction is greater than 100");
     	}
     }
     
     //Put up an item for auction
-    public void Execute(){
-    	Item item = new Item();
-    	
-    	//Args Variables
-    	String itemName = this.args[1];
-        String minBid = this.args[2];
-        String numOfDays = this.args[3];
+	public void Execute() throws Exception
+	{
+		Item item = new Item();
+		
+		item.SetName(itemName);
+		item.SetSellerName(sellerName);
+		item.SetHighestBidderName(sellerName);
+		item.SetDaysRemaining(daysToAuction);
+		item.SetHighestBid(initialPrice);
         
-        
-        //Execute
-        item.SetName(itemName);
-        item.SetHighestBid(Integer.parseInt(minBid));
-        item.SetDaysRemaining(Integer.parseInt(numOfDays));
-        
-        this.itemStorage.Create(item);
-       
+        itemStorage.Create(item);
     }
 }

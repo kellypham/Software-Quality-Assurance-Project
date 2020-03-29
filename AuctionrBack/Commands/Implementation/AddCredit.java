@@ -15,19 +15,13 @@ public class AddCredit extends Command
 	String username;
 	int addCredit;
 
-	int newCredit;
-
 	public AddCredit(String[] args, UserStorage userStorage)
 	{
 		super(args);
 		this.userStorage = userStorage;
-		/*
-		for(int i = 0; i < args.length; i++){
-			System.out.println(args[i]);
-		}
-		*/
+		
+		username = args[0];
 		addCredit = Integer.parseInt(args[2]);
-    	username = args[0];
     }
 
 	/**
@@ -36,13 +30,16 @@ public class AddCredit extends Command
 	 */
 	public void Validate() throws Exception
 	{
-		user = this.userStorage.GetByName(username);
+		user = userStorage.GetByName(username);
     	
-    	//A maximum of $1000.00 can be added to an account 
 		if (addCredit > MAX_CREDIT)
 		{
-    		throw new Exception("Error: The maximum credit is $1000.00");
-    	}
+    		throw new IllegalArgumentException("Error: The maximum credit is $" + MAX_CREDIT);
+		}
+		else if (addCredit < 0)
+		{
+			throw new IllegalArgumentException("Error: The amount of credit cannot be below 0");
+		}
     }
 
 	/**
@@ -50,7 +47,7 @@ public class AddCredit extends Command
 	 */
 	public void Execute() throws Exception
 	{
-		user.SetCredit(user.GetCredit() + newCredit);
+		user.SetCredit(user.GetCredit() + addCredit);
 		userStorage.Update(user);
     }
 

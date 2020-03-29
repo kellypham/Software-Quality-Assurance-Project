@@ -106,7 +106,11 @@ public class Main {
 
 			int bidAmount = item.GetHigestBid();
 
-			if (buyer.GetCredit() >= bidAmount)
+			if (buyer.GetName().equals(seller.GetName()))
+			{
+				return;
+			}
+			else if (buyer.GetCredit() >= bidAmount)
 			{
 				buyer.SetCredit(buyer.GetCredit()-bidAmount);
 				seller.SetCredit(seller.GetCredit()+bidAmount);

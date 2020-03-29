@@ -1,6 +1,7 @@
 package AuctionrBack.Storage;
 
 import AuctionrBack.Models.Item;
+import AuctionrBack.Storage.Exceptions.DuplicateItemException;
 import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
 
 /**
@@ -15,16 +16,18 @@ public abstract class ItemStorage
 	public abstract Item[] All();
 	/**
 	 * Gets an Item by its name
+	 * @param name Item name
+	 * @param sellerName Seller's name
 	 * @throws ItemNotFoundException when no matching item is found
 	 * @return Item matching the name
 	 */
-	public abstract Item GetByName(String name) throws ItemNotFoundException;
+	public abstract Item Query(String name, String sellerName) throws ItemNotFoundException;
 
 	/**
 	 * Add an item to long term storage
 	 * @param item Item to create
 	 */
-	public abstract void Create(Item item);
+	public abstract void Create(Item item) throws DuplicateItemException;
 	
 	/**
 	 * Update an item in long term storage

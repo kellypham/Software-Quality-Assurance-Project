@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import AuctionrBack.Models.Item;
+import AuctionrBack.Storage.Exceptions.DuplicateItemException;
 import AuctionrBack.Storage.Exceptions.ItemNotFoundException;
 import AuctionrBack.Storage.Formatting.StorageFormatter;
 
@@ -102,13 +103,13 @@ public class ItemFileStorage extends ItemStorage
 	 * @return The Item with a matching name
 	 */
 	@Override
-	public Item GetByName(String name) throws ItemNotFoundException
+	public Item Query(String name, String sellerName) throws ItemNotFoundException
 	{
 		for (int i = 0; i < items.size(); i++)
 		{
 			Item item = items.get(i);
 
-			if (item.GetName().equals(name))
+			if (item.GetName().equals(name) && item.GetSellerName().equals(sellerName))
 			{
 				Item result = new Item();
 				Assign(item, result);
@@ -124,9 +125,17 @@ public class ItemFileStorage extends ItemStorage
 	 * @param Item The Item to create
 	 */
 	@Override
-	public void Create(Item item)
+	public void Create(Item item) throws DuplicateItemException
 	{
-		items.add(item);
+		try
+		{
+			Item existingItem = Query(item.GetName(), item.GetSellerName());
+			throw new DuplicateItemException("Item '"+item.GetName()+"' is already for sale by seller '"+item.GetSellerName()+"'");
+		}
+		catch (ItemNotFoundException ex)
+		{
+			items.add(item);
+		}
 	}
 
 	/**
@@ -141,7 +150,7 @@ public class ItemFileStorage extends ItemStorage
 		{
 			Item item = items.get(i);
 
-			if (item.GetName().equals(toUpdate.GetName()))
+			if (item.GetName().equals(toUpdate.GetName()) && item.GetSellerName().equals(toUpdate.GetSellerName()))
 			{
 				Assign(toUpdate, item);
 				return;

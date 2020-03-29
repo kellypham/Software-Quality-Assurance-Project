@@ -1,58 +1,72 @@
 package AuctionrBack.Tests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
 import AuctionrBack.Storage.*;
+import AuctionrBack.Storage.Exceptions.UserNotFoundException;
 
 public class TestAddCredit
 {
+	UserFileStorage storage;
+
 	@Test
-	public void AddCreditSuccessTest() throws Exception
+	public void AddCredit() throws Exception
 	{
-		String[] args = {"User", "AA", "100"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		
-		AddCredit command = new AddCredit(args, storage);
+		final String USER_NAME="user";
+		final int ADD_CREDIT = 100;
+
+		String[] args = {USER_NAME, "AA", "" + ADD_CREDIT};
+		AddCredit command = CreateCommand(args);
 
 		command.Validate();
 		command.Execute();
 
-		User created = storage.GetByName(args[0]);
+		User afterUpdate = storage.GetByName(USER_NAME);
+		assertEquals("Credit was not added to the user account", ADD_CREDIT, afterUpdate.GetCredit());
 	}
 
 
-	@Test(expected=IllegalArgumentException.class)
-	public void AddCreditUserNotFound() throws Exception
+	@Test(expected=UserNotFoundException.class)
+	public void UserNotFound() throws Exception
 	{
-		String[] args = {"userone", "AA", "100"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		
-		AddCredit command = new AddCredit(args, storage);
+		String[] args = {"NotFound", "AA", "100"};
+		AddCredit command = CreateCommand(args);
 
 		command.Validate();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void AddCreditAmountOverLimitTest() throws Exception
+	public void AmountOverLimit() throws Exception
 	{
-		String[] args = {"User", "AA", "1001"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		
-		AddCredit command = new AddCredit(args, storage);
+		String[] args = {"user", "AA", "1001"};
+		AddCredit command = CreateCommand(args);
 
 		command.Validate();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void AddCreditAmountLessThanZeroTest() throws Exception
+	public void AmountBelowMinimum() throws Exception
 	{
-		String[] args = {"User", "AA", "-1"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		
-		AddCredit command = new AddCredit(args, storage);
+		String[] args = {"user", "AA", "-1"};
+		AddCredit command = CreateCommand(args);
 
 		command.Validate();
+	}
+
+	private AddCredit CreateCommand(String[] args)
+	{
+		User user = new User();
+		user.SetName("user");
+		user.SetCredit(0);
+
+		storage = new UserFileStorage("users.txt");
+		storage.Create(user);
+
+		AddCredit command = new AddCredit(args, storage);
+		return command;
 	}
 }
