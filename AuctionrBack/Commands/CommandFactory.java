@@ -42,15 +42,15 @@ public class CommandFactory
 		}
 		else if (code.equals(CODE_ADVERTISE))
 		{
-			return new Advertise(args);
+			return new Advertise(args, userStorage, itemStorage);
 		}
 		else if (code.equals(CODE_BID))
 		{
-			return new Bid(args);
+			return new Bid(args, userStorage, itemStorage);
 		}
 		else if (code.equals(CODE_REFUND))
 		{
-			return new Refund(args);
+			return new Refund(args, userStorage);
 		}
 
 		return null;	

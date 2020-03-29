@@ -8,28 +8,39 @@ import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.Item;
 import AuctionrBack.Storage.*;
+import AuctionrBack.Storage.Exceptions.*;
 public class TestDelete {
 
 	@Test
 	public void DeleteCommandSuccessUserTest() throws Exception {
 		String[] args = {"userone", "FS", "1"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		
+		//Opening UserFile storage and ItemFileStorage
+		UserFileStorage storage = new UserFileStorage("users.txt");
+		storage.Open();
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		itemStorage.Open();
+		
+		
 		DeleteCommand command = new DeleteCommand(args, storage, itemStorage);
-
 		command.Validate();
 		command.Execute();
 		
+		
 		//Should fail
-		User created = storage.GetByName(args[0]);
+		//User created = storage.GetByName(args[0]);
 		
 	}
 	
 	@Test
 	public void DeleteCommandSuccessItemTest() throws Exception {
 		String[] args = {"userone", "FS", "1"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		UserFileStorage storage = new UserFileStorage("users.txt");
+		storage.Open();
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		itemStorage.Open();
+
+		//Delete Command
 		DeleteCommand command = new DeleteCommand(args, storage, itemStorage);
 
 		command.Validate();
@@ -37,17 +48,18 @@ public class TestDelete {
 		
 		
 		//Should fail
-		Item created = itemStorage.GetByName(args[0]);
-		
+		//Item created = itemStorage.GetByName(args[0]);
 	}
 	
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=UserNotFoundException.class)
 	public void DeleteCommandUsernotFound() throws Exception
 	{
-		String[] args = {"userone", "AA", "100"};
-		UserStorage storage = new UserFileStorage("users.txt");
-		ItemStorage itemStorage = new ItemFileStorage("items.txt");
+		String[] args = {"userTestNotDelete", "AA", "100"};
+		UserFileStorage storage = new UserFileStorage("users.txt");
+		ItemFileStorage itemStorage = new ItemFileStorage("items.txt");
+		storage.Open();
+		itemStorage.Open();
 		DeleteCommand command = new DeleteCommand(args, storage, itemStorage);
 
 		command.Validate();

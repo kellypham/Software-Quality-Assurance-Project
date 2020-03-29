@@ -155,6 +155,13 @@ public class UserFileStorage extends UserStorage
 			}
 		}
 	}
+	/**
+	 * Return ArrayList. Allows other commands to check properties of the list of users
+	 * @param returns ArrayList
+	 */
+	public ArrayList<User> ReturnArrayUser(){
+		return users;
+	}
 
 	/**
 	 * Assign all properties from one user to another

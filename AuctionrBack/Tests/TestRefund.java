@@ -13,37 +13,57 @@ public class TestRefund
 	public void RefundSucessTest() throws Exception
 	{
 		String[] args = {"userone", "sellerone", "10"};		
-		Refund command = new Refund(args);
-
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		
+		Refund command = new Refund(args, userStorage);
+		
 		command.Validate();
 		command.Execute();
 	}
 
-	//Tests that should thrown an exception
-	@Test(expected=IllegalArgumentException.class)
+	//Tests that should thrown an exception and fail
+	@Test(expected=Exception.class)
 	public void RefundBuyerDoesNotExistTest() throws Exception
 	{
-		String[] args = {"User", "sellerone", "10"};		
-		Refund command = new Refund(args);
+		String[] args = {"User", "sellerone", "10"};	
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
 
+		Refund command = new Refund(args, userStorage);
+		
 		command.Validate();
 	}
 	
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=Exception.class)
 	public void RefundSellerDoesNotExistTest() throws Exception
 	{
-		String[] args = {"userone", "sellerone", "10"};		
-		Refund command = new Refund(args);
-
+		String[] args = {"userone", "sellerLOL", "10"};	
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		
+		
+		Refund command = new Refund(args, userStorage);
+		
+		
+		
 		command.Validate();
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=Exception.class)
 	public void RefundSellerDoesNotHaveCorrectCreditsTest() throws Exception
 	{
-		String[] args = {"userone", "sellerone", "99999999"};		
-		Refund command = new Refund(args);
+		String[] args = {"userone", "sellerone", "99999999"};	
+		
+		UserFileStorage userStorage = new UserFileStorage("users.txt");
+		userStorage.Open();
+		
+		Refund command = new Refund(args, userStorage);
+	
+		
 		command.Validate();
 	}
 	

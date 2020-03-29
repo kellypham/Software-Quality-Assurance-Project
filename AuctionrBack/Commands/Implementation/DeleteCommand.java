@@ -17,8 +17,7 @@ public class DeleteCommand extends Command
 	public DeleteCommand(String[] args, UserStorage userStorage, ItemStorage itemStorage)
 	{
 		super(args);
-		
-		username = args[1];
+		username = args[0];
 
 		this.userStorage = userStorage;
 		this.itemStorage = itemStorage;

@@ -3,19 +3,10 @@ package AuctionrBack.Tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Test;
-import junit.framework.Assert;
-import AuctionrBack.Commands.Command;
-import AuctionrBack.Commands.CommandFactory;
-import AuctionrBack.Commands.Implementation.*;
-import AuctionrBack.Input.*;
 import AuctionrBack.Models.Item;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.UserType;
-import AuctionrBack.Storage.*;
-import AuctionrBack.Storage.Exceptions.UserNotFoundException;
-import AuctionrBack.Storage.Formatting.StorageFormatter;
+
 
 
 public class TestGettersAndSetters {

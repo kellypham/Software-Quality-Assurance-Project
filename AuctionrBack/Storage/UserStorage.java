@@ -1,6 +1,7 @@
 package AuctionrBack.Storage;
 
 import AuctionrBack.Models.User;
+import java.util.ArrayList;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
 
 public abstract class UserStorage
@@ -30,4 +31,7 @@ public abstract class UserStorage
 	 * @param user The user to delete 
 	 */
 	public abstract void Delete(User user);
+	
+	
+	public abstract ArrayList<User> ReturnArrayUser();
 }
