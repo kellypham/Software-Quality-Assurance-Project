@@ -1,8 +1,5 @@
 package AuctionrBack.Tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
 
 import AuctionrBack.Commands.Command;
@@ -14,6 +11,8 @@ import AuctionrBack.Commands.Implementation.CreateCommand;
 import AuctionrBack.Commands.Implementation.DeleteCommand;
 import AuctionrBack.Commands.Implementation.Refund;
 import AuctionrBack.Input.LogEntry;
+
+import static org.junit.Assert.*;
 
 public class CommandFactoryTest
 {
@@ -71,9 +70,7 @@ public class CommandFactoryTest
 
 		Command cmd = factory.Create(entry);
 
-		assertNotEquals("Factory returned unexpected null for code " + commandCode,
-			null, cmd
-		);
+		assertNotNull("Factory returned unexpected null for code " + commandCode, cmd);
 		assertEquals(
 			"Command code " + commandCode + " did not return type " + expectedType.getName(),
 			expectedType, cmd.getClass()
