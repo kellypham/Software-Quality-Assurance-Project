@@ -3,7 +3,7 @@ package AuctionrBack.Tests;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
+//import static org.junit.Assert.assertEquals;
 import AuctionrBack.Commands.Implementation.*;
 import AuctionrBack.Models.User;
 import AuctionrBack.Storage.*;

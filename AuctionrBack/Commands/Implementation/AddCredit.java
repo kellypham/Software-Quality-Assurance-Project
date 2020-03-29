@@ -6,8 +6,8 @@ import AuctionrBack.Storage.UserStorage;
 
 public class AddCredit extends Command
 {
-    private UserStorage userStorage;
-    
+    private String[] args;
+	private UserStorage userStorage;
 	private final int MAX_CREDIT = 1000;
 	
 	User user;
