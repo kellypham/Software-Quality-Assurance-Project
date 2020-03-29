@@ -27,6 +27,9 @@ newusers.txt
 testNewItems.txt
 testNewUsers.txt
 
+.DS_Store
+.metadata
+
 /out
 
 *.iml
