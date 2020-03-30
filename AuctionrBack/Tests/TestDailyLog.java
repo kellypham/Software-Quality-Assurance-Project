@@ -17,45 +17,37 @@ public class TestDailyLog {
 	private DailyLogFile log = new DailyLogFile("log.txt");
 	
 	@Test
-	public void DailyLogFileInitializeTest(){
-		try{
-			log.Initialize();
-		}
-		catch(Exception ex){
-			//Throws an exception
-		}
+	public void DailyLogFileInitializeTest() throws Exception
+	{
+		log.Initialize();
 	}
 	
 	
 	@Test
-	public void DailyLogFileNextItemTest(){
-		try{
-			log.Initialize();
-		}
-		catch(Exception ex){
-			//Throws an exception
-			
-		}
-		String[] args = {"userone", "FS", "1"};
+	public void DailyLogFileNextItemTest() throws Exception
+	{
+		String expectedCode = "06";
+		String[] expectedArguments = {"userone", "FS", "1"};
+
+		log.Initialize();
+
 		LogEntry result = log.NextItem();
-		assertArrayEquals(result.Arguments(), args);
+		assertEquals(expectedCode, result.TransactionCode());
+		assertArrayEquals(expectedArguments, result.Arguments());
 		
 	}
 
 	
 	@Test
-	public void DailyLogFileIsEmptyTestTrue(){
+	public void DailyLogFileIsEmptyTestTrue()
+	{
 		assertTrue(log.IsEmpty());
 	}
 	
 	@Test
-	public void DailyLogFileIsEmptyTestFalse(){
-		try{
-			log.Initialize();
-		}
-		catch(Exception ex){
-			
-		}
+	public void DailyLogFileIsEmptyTestFalse() throws Exception
+	{
+		log.Initialize();
 		assertFalse(log.IsEmpty());
 	}
 

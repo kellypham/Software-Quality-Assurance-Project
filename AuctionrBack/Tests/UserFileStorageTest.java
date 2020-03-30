@@ -10,6 +10,7 @@ import org.junit.Test;
 import AuctionrBack.Models.User;
 import AuctionrBack.Models.UserType;
 import AuctionrBack.Storage.UserFileStorage;
+import AuctionrBack.Storage.UserStorage;
 import AuctionrBack.Storage.Exceptions.UserNotFoundException;
 
 public class UserFileStorageTest
@@ -109,6 +110,25 @@ public class UserFileStorageTest
 
 		User inStorage = storage.GetByName(USER_NAME);
 		assertEquals(user, inStorage);
+	}
+
+	@Test
+	public void UpdateFinalUser() throws Exception
+	{
+		UserFileStorage storage = new UserFileStorage(USER_FILE);
+
+		for (int i = 0; i < 10; i++)
+		{
+			User u = new User();
+			u.SetName("filler " + i);
+			storage.Create(u);
+		}
+
+		User user = new User();
+		user.SetName("user");
+		storage.Create(user);
+
+		storage.Update(user);
 	}
 
 	@Test(expected=UserNotFoundException.class)
