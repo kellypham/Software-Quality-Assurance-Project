@@ -1,0 +1,8 @@
+login
+admin
+create
+userbs
+BS
+150000
+logout
+exit

@@ -1,0 +1,2 @@
+"Can not open log file './files/noperms'
+Contact an administrator"

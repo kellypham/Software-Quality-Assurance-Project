@@ -1,0 +1,7 @@
+login
+admin
+delete
+usertwo
+userone
+logout
+exit

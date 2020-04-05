@@ -1,0 +1,9 @@
+login
+admin
+refund
+useroneabcdefghijklmnoprstasdasdas
+userone
+sellerone
+10
+logout
+exit

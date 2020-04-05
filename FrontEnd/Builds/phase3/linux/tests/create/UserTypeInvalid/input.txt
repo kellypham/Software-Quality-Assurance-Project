@@ -1,0 +1,9 @@
+login
+admin
+create
+usertwo
+BSA
+BS
+150000
+logout
+exit

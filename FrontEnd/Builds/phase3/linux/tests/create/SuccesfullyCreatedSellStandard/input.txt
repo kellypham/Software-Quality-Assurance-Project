@@ -1,0 +1,8 @@
+login
+admin
+create
+userss
+SS
+150000
+logout
+exit

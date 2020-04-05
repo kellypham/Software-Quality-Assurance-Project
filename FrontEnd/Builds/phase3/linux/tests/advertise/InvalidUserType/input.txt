@@ -1,0 +1,5 @@
+login
+user_BS
+advertise
+logout
+exit

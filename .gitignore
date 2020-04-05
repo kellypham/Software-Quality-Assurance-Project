@@ -36,3 +36,5 @@ testNewUsers.txt
 .idea
 */.idea
 .project
+
+.vscode

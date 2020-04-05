@@ -1,0 +1,4 @@
+"Welcome to the CSCI3060 Auction App
+Command: Username: Welcome, userone
+Command: Enter item name: Number of days to auction:Minimum bid: Input must be in range
+Minimum bid: Command: Command: "

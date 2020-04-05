@@ -1,0 +1,8 @@
+login
+admin
+addcredit
+usermissing
+userone
+10
+logout
+exit

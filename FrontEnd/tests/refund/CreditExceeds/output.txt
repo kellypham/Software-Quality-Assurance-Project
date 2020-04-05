@@ -1,0 +1,4 @@
+"Welcome to the CSCI3060 Auction App
+Command: Username: Welcome, admin
+Command: Buyer name: Seller name: Refund credit: Input must be in range
+Refund credit: Command: Command: "

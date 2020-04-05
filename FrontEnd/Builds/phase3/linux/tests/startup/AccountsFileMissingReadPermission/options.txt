@@ -1,0 +1,3 @@
+AccountsFile ./files/noperms
+ItemsFile ./files/items.txt
+DailyLogFile ./files/log.txt

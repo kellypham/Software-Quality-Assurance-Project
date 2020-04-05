@@ -1,0 +1,8 @@
+login
+admin
+bid
+test_item
+userone
+2
+logout
+exit

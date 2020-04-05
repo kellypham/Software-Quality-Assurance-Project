@@ -1,0 +1,9 @@
+login
+userone
+advertise
+test_item
+ASDASDASD
+5
+150
+logout
+exit

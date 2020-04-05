@@ -1,0 +1,9 @@
+login
+admin
+refund
+userone
+
+sellerone
+20
+logout
+exit

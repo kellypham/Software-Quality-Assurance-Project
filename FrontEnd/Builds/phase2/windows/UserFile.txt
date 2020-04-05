@@ -1,0 +1,2 @@
+userone        FS 1        
+admin          AA 1000     

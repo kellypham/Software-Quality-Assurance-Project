@@ -1,0 +1,9 @@
+login
+userone
+advertise
+test_item
+200
+40
+150
+logout
+exit

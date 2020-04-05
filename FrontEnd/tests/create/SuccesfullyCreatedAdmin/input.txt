@@ -1,0 +1,8 @@
+login
+admin
+create
+admintwo
+AA
+150
+logout
+exit

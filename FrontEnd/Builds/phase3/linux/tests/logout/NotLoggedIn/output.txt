@@ -1,0 +1,3 @@
+"Welcome to the CSCI3060 Auction App
+Command: You must be logged in to use that command
+Command: "

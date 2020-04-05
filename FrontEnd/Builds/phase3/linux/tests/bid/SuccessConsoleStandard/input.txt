@@ -1,0 +1,8 @@
+login
+userone
+bid
+test_item
+sellerone
+50
+logout
+exit

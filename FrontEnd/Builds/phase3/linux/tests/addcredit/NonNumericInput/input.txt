@@ -1,0 +1,7 @@
+login
+userone
+addcredit
+abcd
+10
+logout
+exit

@@ -1,0 +1,2 @@
+"Welcome to the CSCI3060 Auction App
+Command: "

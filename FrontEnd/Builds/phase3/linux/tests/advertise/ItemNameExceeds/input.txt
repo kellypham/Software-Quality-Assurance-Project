@@ -1,0 +1,9 @@
+login
+userone
+advertise
+eawfawefasdvasdvawefdefqwfqefqeff
+test_item
+5
+100
+logout
+exit

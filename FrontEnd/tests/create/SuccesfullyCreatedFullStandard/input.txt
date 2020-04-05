@@ -1,0 +1,8 @@
+login
+admin
+create
+userfs
+FS
+150000
+logout
+exit

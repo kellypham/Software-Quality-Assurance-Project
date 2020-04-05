@@ -1,0 +1,9 @@
+login
+userone
+advertise
+test_item
+7
+10000000
+70
+logout
+exit
