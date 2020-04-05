@@ -7,7 +7,7 @@ MERGED_LOG_FILE="./log.txt"
 upperlim=3
 
 for ((i=0; i<upperlim; i++)); do
-	LOG_FILE=`date +%T_%d_%m_%Y`
+	LOG_FILE=`date +%T:%N_%d_%m_%Y`
 	OPTIONS_FILE="${LOG_FILE}.opts"
 	LOG_FILE="${LOG_FILE}.dailylog"
 
