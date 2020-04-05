@@ -6,8 +6,6 @@ import AuctionrBack.Input.*;
 import AuctionrBack.Models.Item;
 import AuctionrBack.Models.User;
 import AuctionrBack.Storage.*;
-import AuctionrBack.Storage.Exceptions.UserNotFoundException;
-import jdk.jfr.events.ExceptionThrownEvent;
 
 public class Main {
 	private static UserFileStorage userStorage;
