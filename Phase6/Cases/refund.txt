@@ -1,0 +1,8 @@
+login
+admin
+refund
+userone
+admin
+100
+logout
+exit
