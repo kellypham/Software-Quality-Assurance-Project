@@ -1,0 +1,3 @@
+06 admin           AA 100      
+05 userone         admin           100      
+04 test_item           sellerone       admin           100   

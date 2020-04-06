@@ -1,4 +1,4 @@
-userone         FS 5        
+userone         FS 6195     
 user_BS         BS 1        
-sellerone       SS 30       
-admin           AA 1000     
+sellerone       SS 1240     
+admin           AA 900      

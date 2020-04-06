@@ -1,1 +1,1 @@
-test_item           sellerone       userone         9   10    
+test_item           sellerone       admin           50  100   
