@@ -4,15 +4,15 @@
 06 userone         FS 10       
 06 userone         FS 10       
 06 userone         FS 10       
-03 test_item           userone         5   90    
-03 test_item           userone         5   100   
-03 test_item           userone         7   250   
-03 test_item           userone         7   70    
-03 test_item           userone         5   150   
-03 test_item           userone         7   200   
-03 test_item           userone         40  150   
-03 test_item           userone         9   250   
-03 test_item           userone         7   90    
+03 test_item1           userone         5   90    
+03 test_item2           userone         5   100   
+03 test_item3           userone         7   250   
+03 test_item4           userone         7   70    
+03 test_item5           userone         5   150   
+03 test_item6           userone         7   200   
+03 test_item7           userone         40  150   
+03 test_item8           userone         9   250   
+03 test_item9           userone         7   90    
 04 test_item           sellerone       userone         10    
 04 test_item           sellerone       userone         50    
 04 test_item           sellerone       userone         50    

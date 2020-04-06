@@ -37,7 +37,6 @@ public class CreateCommand extends Command {
         users = userStorage.ReturnArrayUser();
         for (User temp : users){
         	if (temp.GetName().equals(username)){
-        		System.out.println("true");
         		throw new Exception("Error: The username has been already declared");
         	}
         }
@@ -60,7 +59,7 @@ public class CreateCommand extends Command {
         //If the type (eg. AA, FS, BS, SS) is correct
         boolean rightOrWrong = false;
         for (UserType type: UserType.values()){
-			if(type.ToString() == stringType){
+			if(type.ToString().equals(stringType)){
 				rightOrWrong = true;
 			}
 		}
@@ -80,7 +79,7 @@ public class CreateCommand extends Command {
         //Getting the user type
         UserType ret = null;
 		for (UserType type: UserType.values()){
-			if(type.ToString() == stringType){
+			if(type.ToString().equals(stringType)){
 				ret = type;
 			}
 		}

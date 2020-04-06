@@ -74,7 +74,6 @@ public class UserFileStorage extends UserStorage
 		{
 			User item = users.get(i);
 			String itemString = Parse(item);
-
 			writer.write(itemString);
 			writer.newLine();
 		}
