@@ -2,8 +2,7 @@
 
 The system consists of two parts:
 
-- the Front End, a point of purchase terminal for bidding and advertising items (written in C++)
-[Front End] (FrontEnd/README.md)
+- the [Front End](FrontEnd/README.md), a point of purchase terminal for bidding and advertising items (written in C++)
 
 - the Back End, an overnight batch processor to maintain and update a master auctions file (written in Java)
 
