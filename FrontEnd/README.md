@@ -1,3 +1,29 @@
+# THE FRONT END
+
+The Front End reads in a file of items available for auction **(1)** and a file containing information regarding current user accounts in the system **(2)**, it processes a stream of item bidding and advertising transactions one at a time **(3)**, and it writes out a file of item bidding and advertising transactions at the end of the session.
+
+
+<p align="center">
+  <img width="500" height="250" src="./FrontEnd.png">
+</p>
+
+The Front End handles a sequence of transactions, each of which begins with a single transaction code (word of text) on a separate line. 
+
+### Transaction codes:
+- login - start a Front End session
+- logout - end a Front End session
+- create - add a user with the ability to bid/advertise items (privileged transaction)
+- delete - remove a user (privileged transaction)
+- advertise - put an item up for auction
+- bid - make a bid on an item available for auction
+- refund - issue a credit to a buyer’s account from a seller’s account (privileged transaction)
+- addcredit - add credit into the system for the purchase of accounts
+
+### General files:
+- Daily Transaction File
+- [Current User Accounts File](UserFile.txt)
+- [Available Items File](ItemFile.txt)
+
 # Build Instructions
 
 This application is built using cmake. To initialize the build, from the FrontEnd directory run the command:
